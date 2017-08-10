@@ -1,5 +1,7 @@
 global loader						; символ входа для ELF
 
+extern kmain
+
 MAGIC_NUMBER equ 0x1BADB002				; определяем значение магического числа	
 FLAGS equ 0x0						; определяем флаги мультизагрузки
 CHECKSUM equ -MAGIC_NUMBER				; рассчитываем контрольную сумму
@@ -19,6 +21,13 @@ align 4							; выравниваем код на величину 4 байта
 loader:							; метка загрузчика( определяется как точка входа в среде компоновщика )
 	mov eax, 0xCAFEBABE				; помещаем число в регистр еах
 
+higher_half:
+
 	mov esp, kernel_stack + KERNEL_STACK_SIZE	; регистр esp указывает на начало стека( конец памяти ) 
+
+enter_kmain:
+
+	call kmain					; вызываем функцию kmain
+
 .loop:
-	jmp .loop				;	вечный цикл
+	jmp .loop					; вечный цикл

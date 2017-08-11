@@ -1,4 +1,5 @@
 global loader						; символ входа для ELF
+global outb						; сделать метку видимой вне этого файла
 
 extern kmain
 
@@ -25,8 +26,13 @@ higher_half:
 
 	mov esp, kernel_stack + KERNEL_STACK_SIZE	; регистр esp указывает на начало стека( конец памяти ) 
 
-enter_kmain:
+outb:
+	mov al, [esp + 8]				; переместить данные которые нужно отправить на экран
+	mov dx, [esp + 4]				; переместить адрес порта ввода-вывода в регистр dx
+	out dx, al					; отправить данные на порт ввода вывода
+	ret						; вернуться к вызывающей функции
 
+enter_kmain:
 	call kmain					; вызываем функцию kmain
 
 .loop:

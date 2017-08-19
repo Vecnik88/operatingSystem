@@ -19,10 +19,10 @@ jmp $
 %include "boot_sect_print_hex.asm"
 
 HELLO:
-	db 'Hello, World', 0
+	db 'Hello, Anton Mikaev. This is your first programm in assembler', 0
 
 GOODBYE:
-	db 'Goodbye', 0
+	db 'Goodbye, Programm off', 0
 
 times 510-($-$$) db 0
 dw 0xaa55

@@ -1,24 +1,30 @@
+[org 0x7c00]
 mov ah, 0x0e
 
-mov bp, 0x8000
-mov sp, bp
+mov bx, 30
 
-push 'A'
-push 'B'
-push 'C'
-push 'D'
+cmp bx, 4
+jle less_eq
+cmp bx, 40
+jl less
+jmp other
 
-pop bx
-mov al, bl
-int 0x10
-pop bx
-mov al, bl
-int 0x10
+less_eq:
+	mov al, 'A'
+	int 0x10
+	jmp loop
 
-mov al, [0x7ffc]
-int 0x10
+less:
+	mov al, 'B'
+	int 0x10
+	jmp loop
 
-jmp $
+other:
+	mov al, 'C'
+	int 0x10
+
+loop:
+	jmp loop
 
 times 510 -($-$$) db 0
 dw 0xaa55

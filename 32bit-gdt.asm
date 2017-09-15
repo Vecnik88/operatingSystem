@@ -5,7 +5,7 @@ gdt_start:
 gdt_code:
 	dw 0xffff
 	dw 0x0
-	dw 0x0
+	db 0x0
 	db 10011010b
 	db 11001111b
 	db 0x0

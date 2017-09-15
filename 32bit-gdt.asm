@@ -1,1 +1,3 @@
-gdt_st
+gdt_start:
+	dd 0x0
+	dd 0x0

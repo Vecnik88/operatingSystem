@@ -1,3 +1,6 @@
 gdt_start:
 	dd 0x0
 	dd 0x0
+
+gdt_code:
+	

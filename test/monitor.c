@@ -1,45 +1,6 @@
-#include "../drivers/ports.h"
-//#include "../test/monitor.h"
-//#include "../test/common.h"
+#include "monitor.h"
 
-// Несколько замечательных типов, обеспечивающих межплатформенную стандартизацию размеров.
-// Это определения для 32-битной платформы X86.
-
-typedef unsigned int   u32int;
-typedef          int   s32int;
-typedef unsigned short u16int;
-typedef          short s16int;
-typedef unsigned char  u8int;
-typedef          char  s8int;
-
-u16int *video_memory = (u16int*)0xB8000;
-// Stores the cursor position.
-u8int cursor_x = 0;
-u8int cursor_y = 0;
-
-void outb(u16int port, u8int value);
-u8int inb(u16int port);
-u16int inw(u16int port);
-
-// Запись байта в указанный порт.
-void outb(u16int port, u8int value)
-{
-    asm volatile ("outb %1, %0" : : "dN" (port), "a" (value));
-}
-
-u8int inb(u16int port)
-{
-   u8int ret;
-   asm volatile("inb %1, %0" : "=a" (ret) : "dN" (port));
-   return ret;
-}
-
-u16int inw(u16int port)
-{
-   u16int ret;
-   asm volatile ("inw %1, %0" : "=a" (ret) : "dN" (port));
-   return ret;
-} 
+// Обновляем аппаратный курсор.
 static void move_cursor()
 {
    // The screen is 80 characters wide...
@@ -172,8 +133,3 @@ void monitor_write(char *c)
        monitor_put(c[i++]);
    }
 } 
-void main()
-{
-	monitor_clear();
-	monitor_write("Hello, world!");
-}

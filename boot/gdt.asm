@@ -19,9 +19,9 @@ gdt_data:
 	db 0x0
 
 gdt_end:
-	
+
 gdt_descriptor:
-	dw gdt_end - gdt_start -1
+	dw gdt_end - gdt_start - 1
 	dd gdt_start
 
 CODE_SEG equ gdt_code - gdt_start

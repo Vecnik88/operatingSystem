@@ -8,6 +8,7 @@ start:
 
 	mov ah, 0x0e
 	int 0x10
+
 	add bx, 1
 	jmp start
 
@@ -19,9 +20,9 @@ print_nl:
 	pusha
 
 	mov ah, 0x0e
-	mov al, 0x0a	; newline ---> '\n'
+	mov al, 0x0a
 	int 0x10
-	mov al, 0x0d	; return carriage(каретка) возвращает каретку в начало строки
+	mov al, 0x0d
 	int 0x10
 
 	popa

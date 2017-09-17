@@ -7,7 +7,7 @@ hex_loop:
 	cmp cx, 4
 	je end
 
-	mov ax,dx
+	mov ax, dx
 	and ax, 0x000f
 	add al, 0x30
 	cmp al, 0x39

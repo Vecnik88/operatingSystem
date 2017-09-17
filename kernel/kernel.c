@@ -1,5 +1,5 @@
-#include "../drivers/include/monitor.h"
 #include "../drivers/include/common.h"
+#include "../drivers/include/monitor.h"
 
 void main()
 {

@@ -1,6 +1,6 @@
-extern u8_int cursor_x = 0;
-extern u8_int cursor_y = 0;
-extern u16_int* video_memory = (u16_int*)0xB8000;
+u8_int cursor_x = 0;
+u8_int cursor_y = 0;
+u16_int* video_memory = (u16_int*)0xB8000;
 
 static void move_cursor()
 {

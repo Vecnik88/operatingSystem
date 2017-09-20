@@ -108,5 +108,12 @@ void monitor_write(char* c)
 void main()
 {
 	monitor_clear();
-	monitor_write("Hello, world!");
+	monitor_write("Hello, world!\n This is my operation system-x86\n");
+	
+	for(j = 0; j < 1000; ++j) {
+		for(i = 0; i < 1000; i++)
+			monitor_put("a");
+
+		monitor_clear();
+	}
 }

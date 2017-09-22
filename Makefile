@@ -2,8 +2,8 @@
 # $< Имя первой зависимости обрабатываемого правила
 # $^ Список всех зависимостей обрабатываемого правила
 
-C_SOURCES = $(wildcard kernel/*.c drivers/*.c source/*.c)
-HEADERS = $(wildcard kernel/*.h drivers/*.h include/*.h)
+C_SOURCES = $(wildcard kernel/*.c drivers/source/*.c)
+HEADERS = $(wildcard kernel/*.h drivers/include/*.h)
 # Nice syntax for file extension replacement
 OBJ = ${C_SOURCES:.c=.o}
 

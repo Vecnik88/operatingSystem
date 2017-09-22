@@ -34,7 +34,11 @@ static void scroll()
 void monitor_put(char c)
 {
 	u8_int back_color = 0;		// black
-	u8_int text_color = 15;		// white
+	/* 	0:черный, 1:синий, 2:зеленый, 3:циан, 4:красный, 5:мажента, 
+		6:коричневый, 7:светло серый, 8:темно серый, 9:светло синий, 10:светло зеленый, 
+		11:светлый циан, 12:светло красный, 13:светлый мажента, 14: светло коричневый, 15: белый. 
+	 */
+	u8_int text_color = 1;		// blue
 
 	u8_int attribute_byte = (back_color << 4) | (text_color & 0x0F);
 	u16_int attribute = attribute_byte << 8;

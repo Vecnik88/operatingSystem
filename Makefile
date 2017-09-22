@@ -11,7 +11,8 @@ OBJ = ${C_SOURCES:.c=.o}
 CC = gcc
 GDB = gdb
 # -g: Use debugging symbols in gcc
-CFLAGS = -g
+# CFLAGS = -g
+CFLAGS=-nostdlib -nostdinc -fno-builtin -fno-stack-protector -g
 
 # First rule is run by default
 os-image.bin: boot/bootsect.bin kernel.bin

@@ -1,3 +1,5 @@
+#include "../include/monitor.h"
+
 u8_int cursor_x = 0;
 u8_int cursor_y = 0;
 u16_int* video_memory = (u16_int*)0xB8000;
@@ -51,7 +53,7 @@ void monitor_put(char c)
 	} else if(c >= ' ')
 	{
 		location = video_memory + (cursor_y*80 + cursor_x);
-		*location  c | attribute;
+		*location = c | attribute;
 		++cursor_x;
 	}
 	scroll();

@@ -1,4 +1,7 @@
-typedef unsigned int u32_int;
+
+#include "../drivers/include/monitor.h"
+//#include "../drivers/include/common.h"
+/*typedef unsigned int u32_int;
 typedef int s32_int;
 typedef unsigned short u16_int;
 typedef short s16_int;
@@ -104,7 +107,7 @@ void monitor_write(char* c)
 	while(c[i])
 		monitor_put(c[i++]);
 }
-
+*/
 void main()
 {
 	monitor_clear();

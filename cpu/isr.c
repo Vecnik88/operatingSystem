@@ -79,5 +79,7 @@ char *exception_messages[] = {
 };
 
 void isr_handler(registers_t r) {
-	monitor_write("received interrupt: " + exception_messages[r.int_no] + "\n");
+	monitor_write("received interrupt: ");
+	monitor_write(exception_messages[r.int_no]);
+	monitor_write("\n");
 }

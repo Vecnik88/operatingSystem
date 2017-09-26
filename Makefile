@@ -2,10 +2,10 @@
 # $< Имя первой зависимости обрабатываемого правила
 # $^ Список всех зависимостей обрабатываемого правила
 
-C_SOURCES = $(wildcard kernel/*.c drivers/source/*.c)
-HEADERS = $(wildcard kernel/*.h drivers/include/*.h)
+C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c)
+HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h)
 # Nice syntax for file extension replacement
-OBJ = ${C_SOURCES:.c=.o}
+OBJ = ${C_SOURCES:.c=.o cpu/interrupt.o}
 
 # Change this if your cross-compiler is somewhere else
 CC = gcc
@@ -48,4 +48,4 @@ debug: os-image.bin kernel.elf
 
 clean:
 	rm -rf *.bin *.dis *.o os-image.bin *.elf
-	rm -rf kernel/*.o boot/*.bin drivers/*.o boot/*.o
+	rm -rf kernel/*.o boot/*.bin drivers/*.o boot/*.o cpu/*.o

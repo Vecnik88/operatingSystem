@@ -1,7 +1,6 @@
 #include "isr.h"
 #include "idt.h"
-#include "../drivers/screen.h"
-#include "../kernel/util.h"
+#include "../drivers/monitor.h"
 
 void isr_init() {
 	set_idt_gate(0, (u32_int) isr0);

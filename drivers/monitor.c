@@ -1,4 +1,4 @@
-#include "../include/monitor.h"
+#include "monitor.h"
 
 static u8_int cursor_x = 0;
 static u8_int cursor_y = 0;

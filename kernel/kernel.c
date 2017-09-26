@@ -1,11 +1,10 @@
 #include "../drivers/include/monitor.h"
+#include "../cpu/isr.h"
+#include "../cpu/idt.h"
 
 int main() {
-	u32_int value = 12345678;
-	char hello[20] = "\nHELLO BRO\n";
-	monitor_clear();
-	monitor_write("hello Bro\n");
-	monitor_write_hex(value);
-	monitor_write(hello);
-	monitor_write_dec(1234);
+	isr_init();
+
+	__asm__ __volatile__("int $2");
+	__asm__ __volatile__("int $3");
 }

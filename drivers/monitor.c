@@ -2,6 +2,8 @@
 
 static u8_int cursor_x = 0;
 static u8_int cursor_y = 0;
+static text_color = COLOR_WHITE;
+static background_color = COLOR_BLACK;
 static u16_int* video_memory = (u16_int*)0xB8000;
 
 /* обновляем аппаратный курсор */
@@ -9,7 +11,7 @@ static void move_cursor()
 {
 	/* вычисляем то место на котором должен находиться курсор */
 	u16_int cursor_position = cursor_y * 80 + cursor_x;
-	
+
 	outb(0x3D4, 14);					// сообщаем плате VGA что посылаем старший байт курсора 
 	outb(0x3D5, cursor_position >> 8);	// отправляем старший байт курсора
 	outb(0x3D4, 15);					// сообщаем что посылаем младший байт курсора
@@ -18,7 +20,8 @@ static void move_cursor()
 
 static void scroll()
 {
-	u8_int attribute_byte = (0 << 4) | (15 & 0x0F);
+	/* делаем символ пробела с атрибутами цвета, заданными по умолчанию */
+	u8_int attribute_byte = (background_color << 4) | (text_color & 0x0F);
 	u16_int blank = 0x20 | (attribute_byte << 8);
 
 	if(cursor_y >= 25)
@@ -27,7 +30,7 @@ static void scroll()
 		for(i = 0*80; i < 24*80; ++i)
 			video_memory[i] = video_memory[i+80];
 	
-		for(i = 24*80; i < 25*80; ++i)
+		for(i = 24*80; i < MONITOR_SIZE; ++i)
 			video_memory[i] = blank;
 
 		cursor_y = 24;

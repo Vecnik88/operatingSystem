@@ -2,7 +2,7 @@
 #include "../cpu/isr.h"
 #include "../cpu/idt.h"
 
-int main() {
+void main() {
 	monitor_clear();
 	monitor_write("kernel run\n");
 	isr_init();

@@ -4,13 +4,16 @@ static u8_int cursor_x = 0;
 static u8_int cursor_y = 0;
 static u16_int* video_memory = (u16_int*)0xB8000;
 
+/* обновляем аппаратный курсор */
 static void move_cursor()
 {
+	/* вычисляем то место на котором должен находиться курсор */
 	u16_int cursor_position = cursor_y * 80 + cursor_x;
-	outb(0x3D4, 14);
-	outb(0x3D5, cursor_position >> 8);
-	outb(0x3D4, 15);
-	outb(0x3D5, cursor_position);
+	
+	outb(0x3D4, 14);					// сообщаем плате VGA что посылаем старший байт курсора 
+	outb(0x3D5, cursor_position >> 8);	// отправляем старший байт курсора
+	outb(0x3D4, 15);					// сообщаем что посылаем младший байт курсора
+	outb(0x3D5, cursor_position);		// отправляем младший байт курсора
 }
 
 static void scroll()

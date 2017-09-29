@@ -1,4 +1,4 @@
-//#include "common.h"
+#include "ports.h"
 
 #define MONITOR_SIZE 		(80*25)
 

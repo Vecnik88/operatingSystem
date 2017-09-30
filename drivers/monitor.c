@@ -12,10 +12,10 @@ static void move_cursor()
 	/* вычисляем то место на котором должен находиться курсор */
 	u16_int cursor_position = cursor_y * 80 + cursor_x;
 
-	outb(0x3D4, 14);					// сообщаем плате VGA что посылаем старший байт курсора 
-	outb(0x3D5, cursor_position >> 8);	// отправляем старший байт курсора
-	outb(0x3D4, 15);					// сообщаем что посылаем младший байт курсора
-	outb(0x3D5, cursor_position);		// отправляем младший байт курсора
+	outb(REG_SCREEN_CTRL, 14);						// сообщаем плате VGA что посылаем старший байт курсора 
+	outb(REG_SCREEN_DATA, cursor_position >> 8);	// отправляем старший байт курсора
+	outb(REG_SCREEN_CTRL, 15);						// сообщаем что посылаем младший байт курсора
+	outb(REG_SCREEN_DATA, cursor_position);			// отправляем младший байт курсора
 }
 
 static void scroll()
@@ -107,7 +107,7 @@ u32_int k_print_dec(u32_int n)
 	transfer_value(n, str_dec, HEX_VALUE);
 
 	u32_int i = strlen(str_dec);
-	
+
 	while(i)
 		k_print_char(str_dec[--i]);
 
@@ -164,7 +164,7 @@ void memcpy(s8_int* src, s8_int* dst, u32_int val)
 		dst[--val] = src[val];
 }
 
-void memset(s8_int* destination, s32_int c, u32_int n)
+void memset(s8_int* destination, s8_int c, u32_int n)
 {
 	while(n)
 		destination[n--] = c;

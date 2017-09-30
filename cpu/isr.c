@@ -1,7 +1,4 @@
 #include "isr.h"
-#include "idt.h"
-#include "../drivers/monitor.h"
-#include "../kernel/util.h"
 
 void isr_install() 
 {

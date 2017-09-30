@@ -1,6 +1,9 @@
 #ifndef ISR_H
 #define ISR_H
 
+#include "idt.h"
+#include "../drivers/monitor.h"
+#include "../kernel/util.h"
 #include "types.h"
 
 /* ISRs reserved for CPU exceptions */

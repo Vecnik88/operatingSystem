@@ -6,10 +6,10 @@
 /* start function in my kernel */
 void main() 
 {
-	//clear_monitor();
-	//k_print("Hello Anton\n");
+	clear_monitor();
+	k_print("Hello Anton\n");
 
 	isr_install();
-	__asm__ __volatile__ ("int $2");
-	__asm__ __volatile__ ("int $3");
+	//__asm__ __volatile__ ("int $2");
+	//__asm__ __volatile__ ("int $3");
 }

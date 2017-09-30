@@ -1,4 +1,4 @@
-#include "types.h"
+#include "../cpu/types.h"
 #include "ports.h"
 #include "../kernel/util.h"
 

@@ -1,4 +1,4 @@
-#include "types.h"
+#include "../cpu/types.h"
 
 u8_int inb(u16_int port);
 u16_int inw(u16_int port);

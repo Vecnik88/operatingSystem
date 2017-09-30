@@ -26,9 +26,11 @@
 #define REG_SCREEN_CTRL 0x3d4
 #define REG_SCREEN_DATA 0x3d5
 
-void clear_monitor(void);
-//void k_print_at(u8_int* message, u32_int col, u32_int row);
-u32_int k_print(s8_int *message);
+void clear_monitor(void);					/* очищает экран */
+u32_int k_print(s8_int*);					/* выводит строку на экран */
+void k_print_char(s8_int);
+u32_int k_print_dec(u32_int);
+u32_int k_print_hex(u32_int);
 //void monitor_put(s8_int c);
 //void monitor_clear();
 //void monitor_write(s8_int* c);

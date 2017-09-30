@@ -2,8 +2,8 @@
 
 static u8_int cursor_x = 0;
 static u8_int cursor_y = 0;
-static text_color = COLOR_WHITE;
-static background_color = COLOR_BLACK;
+static u8_int text_color = COLOR_WHITE;
+static u8_int background_color = COLOR_BLACK;
 static u16_int* video_memory = (u16_int*)0xB8000;
 
 /* обновляем аппаратный курсор */
@@ -77,14 +77,16 @@ void clear_monitor(void)
 	move_cursor();
 }
 
-void k_print(s8_int* c)
+u32_int k_print(s8_int* c)
 {
-	int i = 0;
+	u32_int i = 0;
 	while(c[i])
 		k_print_char(c[i++]);
+
+	return i;
 }
 
-void k_print_hex(u32_int n)
+u32_int k_print_hex(u32_int n)
 {
 	s8_int str_hex[20] = "0";
 	s8_int* train;
@@ -95,18 +97,23 @@ void k_print_hex(u32_int n)
 
 	while(i)
 		k_print_char(str_hex[--i]);
+
+	return strlen(str_hex);
 }
 
-void k_print_dec(u32_int n)
+u32_int k_print_dec(u32_int n)
 {
 	s8_int str_dec[20] = "0";
 	transfer_value(n, str_dec, HEX_VALUE);
 
 	u32_int i = strlen(str_dec);
+	
 	while(i)
 		k_print_char(str_dec[--i]);
 
 	k_print("d");
+
+	return strlen(str_dec);
 }
 
 void transfer_value(u32_int value, s8_int* buf, s8_int type) {

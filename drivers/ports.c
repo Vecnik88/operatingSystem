@@ -1,29 +1,25 @@
 #include "ports.h"
 
-/* отправляем байт в порт */
-void outb(u16_int port, u8_int value)
+u8_int in_byte(u16_int port)
 {
-	__asm__ __volatile__ ("out %%ax, %%dx" : : "a" (value), "d" (port));
+	u8_int recv_byte;
+	__asm__ __volatile__ ("in %%dx, %%al" : "=a" (recv_byte) : "d"(port));
+
+	return recv_byte;
 }
 
-/* отправляем 2 байта в порт */
-void outw(u16_int port, u16_int data) {
-	__asm__ __volatile__("out %%al, %%dx" : : "a"(data), "d"(port));
-}
-
-/* получаем байт из порта */
-u8_int inb(u16_int port)
+void out_byte(u16_int port, u8_int data)
 {
-	u8_int ret;
-	__asm__ __volatile__("in %%dx, %%al" : "=a"(ret) : "d" (port));
-	return ret;
+	__asm__ __volatile__ ("out %%al, %%dx" : : "a"(data), "d"(port));
 }
-
-/* получаем два байта из порта */
-u16_int inw(u16_int port)
+u16_int in_word(u16_int port)
 {
-	u16_int ret;
-	__asm__ __volatile__("in %%dx, %%ax" : "=a" (ret) : "d" (port));
+	u16_int recv_word;
+	__asm__ __volatile__ ("in %%dx, %%ax" : "=a" (recv_word) : "d"(port));
 
-	return ret;
+	return recv_word;
+}
+void out_word(u16_int port, u16_int data)
+{
+	__asm__ __volatile__ ("out %%ax, %%dx" : : "a"(data), "d"(port));
 }

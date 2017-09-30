@@ -1,11 +1,6 @@
-#ifndef PORTS_H
-#define PORTS_H
+#include "types.h"
 
-#include "../cpu/types.h"
-
-u8_int inb(u16_int);
-u16_int inw(u16_int);
-void outb(u16_int, u8_int);
-void outw(u16_int, u16_int);
-
-#endif
+u8_int in_byte(u16_int port);
+void out_byte(u16_int port, u8_int data);
+u16_int in_word(u16_int port);
+void out_word(u16_int port, u16_int data);

@@ -63,7 +63,7 @@ void k_print_char(s8_int c)
 	move_cursor();
 }
 
-void clear_monitor(void)
+void clear_monitor()
 {
 	u8_int attribute_byte = (0 << 4) | (15 & 0x0F);
 	u16_int blank = 0x20 | (attribute_byte << 8);

@@ -80,10 +80,10 @@ char *exception_messages[] = {
 void isr_handler(registers_t r)
 {
 	k_print("received interrupt: ");
-	char str[3];
-	int_to_asci(r.int_no, str);
-	k_print(str);
-	k_print("\n");
-	k_print(exception_messages[r.int_no]);
-	k_print("\n");
+	//char str[3];
+	//int_to_asci(r.int_no, str);
+	//k_print(str);
+	//k_print("\n");
+	//k_print(exception_messages[r.int_no]);
+	//k_print("\n");
 }

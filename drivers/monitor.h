@@ -1,4 +1,6 @@
-#include "../cpu/types.h"
+#ifndef MONITOR_H
+#define MONITOR_H
+
 #include "ports.h"
 #include "../kernel/util.h"
 
@@ -26,9 +28,10 @@
 #define REG_SCREEN_CTRL 		0x3d4
 #define REG_SCREEN_DATA 		0x3d5
 
-void clear_monitor(void);										/* очищает экран */
+void clear_monitor();										/* очищает экран */
 u32_int k_print(s8_int*);										/* выводит строку на экран */
 void k_print_char(s8_int);										/* печатает символ на экране */
 u32_int k_print_dec(u32_int);									/* печатает десятизначное число 8-значным на экране */
 u32_int k_print_hex(u32_int);									/* печатает десятизначное число 16-значным на экране */
 
+#endif

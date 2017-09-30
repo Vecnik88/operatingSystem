@@ -37,7 +37,8 @@ void int_to_asci(u32_int n, char* str)
 	str[i] = '\0';
 }
 
-void transfer_value(u32_int value, s8_int* buf, s8_int type) {
+void transfer_value(u32_int value, s8_int* buf, s8_int type)
+{
 	u32_int div = 0;
 	div = type == HEX_VALUE ? 8 : 16;
 

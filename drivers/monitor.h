@@ -28,7 +28,7 @@
 
 void clear_monitor(void);
 //void k_print_at(u8_int* message, u32_int col, u32_int row);
-u32_int k_print(u8_int *message);
+u32_int k_print(s8_int *message);
 //void monitor_put(s8_int c);
 //void monitor_clear();
 //void monitor_write(s8_int* c);

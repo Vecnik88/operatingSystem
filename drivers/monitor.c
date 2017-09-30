@@ -37,16 +37,9 @@ static void scroll()
 	}
 }
 
-void monitor_put(s8_int c)
+void k_print_char(s8_int c)
 {
-	u8_int back_color = 0;		// black
-	/* 	0:черный, 1:синий, 2:зеленый, 3:циан, 4:красный, 5:мажента, 
-		6:коричневый, 7:светло серый, 8:темно серый, 9:светло синий, 10:светло зеленый, 
-		11:светлый циан, 12:светло красный, 13:светлый мажента, 14: светло коричневый, 15: белый. 
-	 */
-	u8_int text_color = 12;		// blue
-
-	u8_int attribute_byte = (back_color << 4) | (text_color & 0x0F);
+	u8_int attribute_byte = (background_color << 4) | (text_color & 0x0F);
 	u16_int attribute = attribute_byte << 8;
 	u16_int * location;
 	
@@ -84,36 +77,36 @@ void clear_monitor(void)
 	move_cursor();
 }
 
-void monitor_write(s8_int* c)
+void k_print(s8_int* c)
 {
 	int i = 0;
 	while(c[i])
-		monitor_put(c[i++]);
+		k_print_char(c[i++]);
 }
 
-void monitor_write_hex(u32_int n)
+void k_print_hex(u32_int n)
 {
 	s8_int str_hex[20] = "0";
 	s8_int* train;
 	transfer_value(n, str_hex, DEC_VALUE);
 
-		monitor_write("0x");
+		k_print("0x");
 		u32_int i = strlen(str_hex);
 
 	while(i)
-		monitor_put(str_hex[--i]);
+		k_print_char(str_hex[--i]);
 }
 
-void monitor_write_dec(u32_int n)
+void k_print_dec(u32_int n)
 {
 	s8_int str_dec[20] = "0";
 	transfer_value(n, str_dec, HEX_VALUE);
 
 	u32_int i = strlen(str_dec);
 	while(i)
-		monitor_put(str_dec[--i]);
+		k_print_char(str_dec[--i]);
 
-	monitor_write("d");
+	k_print("d");
 }
 
 void transfer_value(u32_int value, s8_int* buf, s8_int type) {
@@ -164,7 +157,7 @@ void memcpy(s8_int* src, s8_int* dst, u32_int val)
 		dst[--val] = src[val];
 }
 
-void memset (s8_int* destination, s32_int c, u32_int n)
+void memset(s8_int* destination, s32_int c, u32_int n)
 {
 	while(n)
 		destination[n--] = c;

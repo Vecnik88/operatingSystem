@@ -1,4 +1,6 @@
+#include "types.h"
 #include "ports.h"
+#include "../kernel/util.h"
 
 #define MONITOR_SIZE 		(80*25)
 
@@ -20,9 +22,6 @@
 #define COLOR_LIGHT_BROWN		14
 #define COLOR_WHITE				15
 
-#define HEX_VALUE 0
-#define DEC_VALUE 1
-
 /* команды для контроллера VGA */
 #define REG_SCREEN_CTRL 		0x3d4
 #define REG_SCREEN_DATA 		0x3d5
@@ -33,7 +32,3 @@ void k_print_char(s8_int);										/* печатает символ на экр
 u32_int k_print_dec(u32_int);									/* печатает десятизначное число 8-значным на экране */
 u32_int k_print_hex(u32_int);									/* печатает десятизначное число 16-значным на экране */
 
-u32_int strlen(s8_int* str);
-void memcpy(s8_int* src, s8_int* dst, u32_int val);
-void memset (s8_int* destination, s8_int c, u32_int n);
-void transfer_value(u32_int value, s8_int* buf, s8_int type);	/* переводит число в строку в соответствии с запрашиваемым типом */

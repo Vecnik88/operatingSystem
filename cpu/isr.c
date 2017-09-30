@@ -3,7 +3,7 @@
 #include "../drivers/monitor.h"
 #include "../kernel/util.h"
 
-void isr_init(void) 
+void isr_install() 
 {
     set_idt_gate(0, (u32_int)isr0);
     set_idt_gate(1, (u32_int)isr1);

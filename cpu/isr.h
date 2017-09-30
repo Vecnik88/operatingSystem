@@ -45,7 +45,7 @@ typedef struct {
    u32_int eip, cs, eflags, useresp, ss; /* Pushed by the processor automatically */
 } registers_t;
 
-void isr_init(void);
+void isr_install();
 void isr_handler(registers_t);
 
 #endif

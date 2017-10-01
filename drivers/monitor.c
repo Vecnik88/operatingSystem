@@ -34,6 +34,15 @@ void k_print(s8_int* str)
 	k_print_at(str, -1, -1);
 }
 
+void k_print_backspace()
+{
+	s32_int offset = get_cursor_offset() - 2;
+	s32_int row = get_offset_row(offset);
+	s32_int col = get_offset_col(offset);
+
+	print_char(0x08, col, row, WHITE_ON_BLACK);
+}
+
 s32_int print_char(s8_int c, s32_int col, s32_int row, s8_int attr)
 {
 	s8_int* video_memory = (s8_int*)VIDEO_ADDRESS_VGA;

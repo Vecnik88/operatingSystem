@@ -13,3 +13,4 @@
 void clear_screen();
 void k_print_at(s8_int* str, s32_int col, s32_int row);
 void k_print(s8_int* str);
+void k_print_backspace();

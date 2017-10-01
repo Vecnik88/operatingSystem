@@ -1,6 +1,6 @@
 #include "monitor.h"
-#include "ports.h"
-#include "../kernel/util.h"
+#include "../cpu/ports.h"
+#include "../libc/mem.h"
 
 s32_int get_cursor_offset();
 void set_cursor_offset(s32_int offset);

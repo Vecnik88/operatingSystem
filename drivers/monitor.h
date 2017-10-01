@@ -11,5 +11,5 @@
 #define VGA_DATA 0x3d5
 
 void clear_screen();
-void k_print_at(s8_int* str, u32_int col, u32_int row);
+void k_print_at(s8_int* str, s32_int col, s32_int row);
 void k_print(s8_int* str);

@@ -4,5 +4,5 @@
 void main(void)
 {
 	clear_screen();
-	k_print_at("Hello! I am your kernel\n", -1, -1);
+	k_print("Hello! I am your kernel\n");
 }

@@ -9,7 +9,7 @@ u32_int get_offset_row(u32_int offset);
 u32_int get_offset_col(u32_int offset);
 
 /* печатает строку в соответствующих местах */
-void k_print_at(s8_int* str, u32_int col, u32_int row)
+void k_print_at(s8_int* str, s32_int col, s32_int row)
 {
 	u32_int offset;
 	if (col >= 0 && row >= 0) {
@@ -18,6 +18,7 @@ void k_print_at(s8_int* str, u32_int col, u32_int row)
 		offset = get_cursor_offset();
 		row = get_offset_row(offset);
 		col = get_offset_col(offset);
+		//k_print_at("I run", 5, 5);
 	}
 
 	u32_int i = 0;
@@ -69,7 +70,7 @@ u32_int print_char(s8_int c, u32_int col, u32_int row, s8_int attr)
 u32_int get_cursor_offset()
 {
 	out_byte(VGA_CTRL, 14);
-	s32_int offset = in_byte(VGA_DATA) << 8;
+	u32_int offset = in_byte(VGA_DATA) << 8;
 	out_byte(VGA_CTRL, 15);
 	offset += in_byte(VGA_DATA);
 
@@ -89,7 +90,7 @@ void clear_screen()
 {
 	u32_int i;
 	u32_int vga_video_size = MAX_COLS * MAX_ROWS;
-	s8_int* video_memory = VIDEO_ADDRESS_VGA;
+	s8_int* video_memory = (s8_int*)VIDEO_ADDRESS_VGA;
 
 	for (i = 0; i < vga_video_size; ++i) {
 		video_memory[i*2] = ' ';
@@ -110,5 +111,5 @@ u32_int get_offset_row(u32_int offset)
 }
 u32_int get_offset_col(u32_int offset)
 {
-	return ((offset-(get_offset_row(offset)*2*MAX_COLS))/2);
+	return (offset-(get_offset_row(offset)*2*MAX_COLS))/2;
 }

@@ -2,6 +2,9 @@
 #include "idt.h"
 #include "../drivers/monitor.h"
 #include "../kernel/util.h"
+#include "../drivers/ports.h"
+
+isr_t interrupt_handlers[256];
 
 void isr_init()
 {
@@ -37,6 +40,35 @@ void isr_init()
     set_idt_gate(29, (u32_int)isr29);
     set_idt_gate(30, (u32_int)isr30);
     set_idt_gate(31, (u32_int)isr31);
+
+    out_byte(0x20, 0x11);
+    out_byte(0xA0, 0x11);
+    out_byte(0x21, 0x20);
+    out_byte(0xA1, 0x28);
+    out_byte(0x21, 0x04);
+    out_byte(0xA1, 0x02);
+    out_byte(0x21, 0x01);
+    out_byte(0xA1, 0x01);
+    out_byte(0x21, 0x0);
+    out_byte(0xA1, 0x0); 
+
+    // Install the IRQs
+    set_idt_gate(32, (u32_int)irq0);
+    set_idt_gate(33, (u32_int)irq1);
+    set_idt_gate(34, (u32_int)irq2);
+    set_idt_gate(35, (u32_int)irq3);
+    set_idt_gate(36, (u32_int)irq4);
+    set_idt_gate(37, (u32_int)irq5);
+    set_idt_gate(38, (u32_int)irq6);
+    set_idt_gate(39, (u32_int)irq7);
+    set_idt_gate(40, (u32_int)irq8);
+    set_idt_gate(41, (u32_int)irq9);
+    set_idt_gate(42, (u32_int)irq10);
+    set_idt_gate(43, (u32_int)irq11);
+    set_idt_gate(44, (u32_int)irq12);
+    set_idt_gate(45, (u32_int)irq13);
+    set_idt_gate(46, (u32_int)irq14);
+    set_idt_gate(47, (u32_int)irq15);
 
     set_idt(); // Load with ASM
 }
@@ -87,4 +119,23 @@ void isr_handler(registers_t r) {
     k_print("\n");
     k_print(exception_messages[r.int_no]);
     k_print("\n");
+}
+
+void register_interrupt_handler(u8_int n, isr_t handler) {
+    interrupt_handlers[n] = handler;
+}
+
+void irq_handler(registers_t r) {
+    /* After every interrupt we need to send an EOI to the PICs
+     * or they will not send another interrupt again */
+    if (r.int_no >= 40) 
+    	out_byte(0xA0, 0x20); /* slave */
+    
+    out_byte(0x20, 0x20); /* master */
+
+    /* Handle the interrupt in a more modular way */
+    if (interrupt_handlers[r.int_no] != 0) {
+        isr_t handler = interrupt_handlers[r.int_no];
+        handler(r);
+    }
 }

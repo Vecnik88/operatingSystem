@@ -1,4 +1,4 @@
-#include "types.h"
+#include "../cpu/types.h"
 
 u8_int in_byte(u16_int port);					/* получаем байт из порта */
 void out_byte(u16_int port, u8_int data);		/* отправляем байт в порт */

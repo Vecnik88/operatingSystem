@@ -1,4 +1,4 @@
-#include "types.h"
+#include "../cpu/types.h"
 
 #define VIDEO_ADDRESS_VGA 0xb8000
 #define MAX_ROWS 25

@@ -1,7 +1,7 @@
 #include "keyboard.h"
-#include "ports.h"
+#include "../drivers/ports.h"
 #include "../cpu/isr.h"
-#include "monitor.h"
+#include "../drivers/monitor.h"
 
 static void keyboard_callback(registers_t regs)
 {

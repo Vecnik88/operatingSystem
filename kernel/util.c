@@ -35,7 +35,7 @@ void i_t_o_a(s32_int n, s8_int* str)
 void reverse(u8_int* str)
 {
 	s32_int c, i, j;
-	for (i = 0; j = strlen(str)-1; i < j; ++i; --j) {
+	for (i = 0, j = strlen(str)-1; i < j; ++i, --j) {
 		c = str[i];
 		str[i] = str[j];
 		str[j] = c;

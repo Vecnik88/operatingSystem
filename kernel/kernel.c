@@ -9,4 +9,14 @@ void main(void)
     k_print_at("There is a line\nbreak", 0, 20);
     k_print("There is a line\nbreak");
     k_print_at("What happens when we run out of space?", 45, 24);
+    isr_init();
+    /* Test the interrupts */
+    __asm__ __volatile__("int $2");
+    __asm__ __volatile__("int $3");
+    __asm__ __volatile__("int $4");
+    /*__asm__ __volatile__("int $5");
+    __asm__ __volatile__("int $6");
+    __asm__ __volatile__("int $7");
+    __asm__ __volatile__("int $8");
+    __asm__ __volatile__("int $9");*/
 }

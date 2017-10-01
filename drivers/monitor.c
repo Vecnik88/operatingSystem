@@ -1,5 +1,6 @@
 #include "monitor.h"
 #include "ports.h"
+#include "../kernel/util.h"
 
 s32_int get_cursor_offset();
 void set_cursor_offset(s32_int offset);
@@ -61,6 +62,23 @@ s32_int print_char(s8_int c, s32_int col, s32_int row, s8_int attr)
 		video_memory[offset+1] = attr;
 		offset += 2;
 	}
+
+	/* прокрутка экрана */
+	if (offset >= MAX_ROWS*MAX_COLS*2) {
+		u32_int i;
+		for (i = 0; i < MAX_ROWS; ++i)
+			mem_cpy(get_offset(0, i) + VIDEO_ADDRESS_VGA,
+					get_offset(0, i-1) + VIDEO_ADDRESS_VGA,
+					MAX_COLS * 2);
+
+		s8_int* l_line = get_offset(0, MAX_ROWS-1) + VIDEO_ADDRESS_VGA;
+
+		for (i = 0; i < MAX_COLS*2; ++i)
+			l_line[i] = 0;
+
+		offset -= 2* MAX_COLS;
+	}
+
 	set_cursor_offset(offset);
 
 	return offset;

@@ -9,7 +9,7 @@
 #define BACKSPACE 0x0E
 #define ENTER 0x1C
 
-static char key_buffer[256];
+static s8_int key_buffer[256];
 
 #define SC_MAX 57
 const s8_int *sc_name[] = { "ERROR", "Esc", "1", "2", "3", "4", "5", "6", 
@@ -26,7 +26,7 @@ const s8_int sc_ascii[] = { '?', '?', '1', '2', '3', '4', '5', '6',
 
 static void keyboard_callback(registers_t regs) {
     /* The PIC leaves us the scancode in port 0x60 */
-    u8_int scancode = port_byte_in(0x60);
+    u8_int scancode = in_byte(0x60);
     
     if (scancode > SC_MAX) return;
     if (scancode == BACKSPACE) {
@@ -43,6 +43,7 @@ static void keyboard_callback(registers_t regs) {
         append(key_buffer, letter);
         k_print(str);
     }
+
     UNUSED(regs);
 }
 

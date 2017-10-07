@@ -3,6 +3,7 @@
 
 #include "isr.h"
 #include "types.h"
+#include "kheap.h"
 
 #define PANIC(x) k_print(x); while(1)
 

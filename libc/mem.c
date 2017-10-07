@@ -1,14 +1,15 @@
 #include "mem.h"
 
-void mem_cpy(u8_int* src, u8_int* dst, u32_int count)
+void mem_cpy(s8_int* src, s8_int* dst, u32_int count)
 {
 	u32_int i;
 	for (i = 0; i < count; ++i)
-		dst[i] = src[i];
+		*(dst + i) = *(src + i);
 }
 
-void mem_set(u8_int* dest, u8_int value, u32_int len)
+void mem_set(s8_int* dest, u8_int value, u32_int len)
 {
-	while(len)
-		dest[len--] = value;
+	s8_int* temp = (s8_int*)dest;
+	for ( ; len != 0; --len)
+		*temp++ = value;
 }

@@ -1,7 +1,7 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-/**/
+/* определяем свои типы переменных */
 
 typedef unsigned char 	u8_int;
 typedef char 			s8_int;

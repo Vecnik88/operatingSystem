@@ -11,14 +11,14 @@ void main(void)
  	irq_init();
 
  	k_print("HEllo");
-
+ 	return;
 }
 
 void user_input(s8_int* input)
 {
     if (strcmp(input, "END") == 0) {
         k_print("Stopping the CPU. Bye!\n");
-        asm volatile("hlt");
+        __asm__ __volatile__("hlt");
     }
     k_print("You said: ");
     k_print(input);

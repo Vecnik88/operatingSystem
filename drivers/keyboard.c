@@ -38,7 +38,7 @@ static void keyboard_callback(registers_t regs) {
         key_buffer[0] = '\0';
     } else {
         s8_int letter = sc_ascii[(s32_int)scancode];
-        /* Remember that kprint only accepts char[] */
+        /* Remember that k_print only accepts char[] */
         s8_int str[2] = {letter, '\0'};
         append(key_buffer, letter);
         k_print(str);

@@ -8,7 +8,7 @@
 
 typedef struct {
 	u16_int low_offset;					/* младшие 16 бит адреса функции обработчика */
-	u16_int sel;						/* селектор ядра */
+	u16_int sel;						/* переключатель селектора ядра */
 	u8_int always0;						/* всегда 0 */
 	/* флаги:
 	 * 7 бит "если установлен, прерывание присутствует"
@@ -23,7 +23,7 @@ typedef struct {
 /* указатель на массив обработчиков прерываний */
 typedef struct {
 	u16_int limit;
-	u32_int base;
+	u32_int base;						/* адрес первого элемента куда происходит переход */
 } __attribute__((packed)) idt_register_t;
 
 idt_gate_t idt[IDT_ENTRIES];

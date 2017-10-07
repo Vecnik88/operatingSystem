@@ -81,3 +81,15 @@ void unmap(u32_int)
 		return 1;
 	}
 }
+
+void page_fault(registers_t* regs)
+{
+	u32_int cr2;
+	__asm__ __volatile__("mov %%cr2, %0" : "=r" (cr2));
+	k_print("Page fault at 0x%x, faulting address 0x%x\n", regs->eip, cr2);
+  	k_print("Error code: %x\n", regs->err_code);
+  	panic ("");
+  	while(1) {
+
+  	}
+}

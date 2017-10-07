@@ -46,3 +46,28 @@ void init_vmm()
 
 	pmm_paging_active = 1;
 }
+
+void switch_page_directory(page_directory_t* pd)
+{
+	current_directory = pd;
+	__asm__ __volatile__("mov %0, %%cr3" : : "r"(pd));
+}
+
+void map(u32_int va, u32_int pa, u32_int flags)
+{
+	u32_int virual_page = va/0x1000;
+	u32_int pt_idx = PAGE_DIR_IDX(virual_page);
+
+	if (!page_directory[pt_idx]) {
+		page_directory[pt_idx] = pmm_alloc_page() | PAGE_PRESENT | PAGE_WRITE;
+		mem_set(page_tables[pt_idx*1024], 0, 0x1000);
+	}
+
+	page_tables[virual_page] = (pa & PAGE_MASK) | flags;
+}
+
+void unmap(u32_int)
+{
+	u32_int virtual_page = va/0x1000;
+	u32_int pt_idx = PAGE_DIR_IDX(virtual_page);
+}

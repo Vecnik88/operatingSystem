@@ -70,4 +70,14 @@ void unmap(u32_int)
 {
 	u32_int virtual_page = va/0x1000;
 	u32_int pt_idx = PAGE_DIR_IDX(virtual_page);
+
+	if (!page_directory[pt_idx])
+		return 0;
+
+	if (page_directory[virtual_page] != 0) {
+		if(pa) 
+			*pa = page_tables[virtual_page] & PAGE_MASK;
+
+		return 1;
+	}
 }

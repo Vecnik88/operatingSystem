@@ -4,6 +4,8 @@
 #include "isr.h"
 #include "types.h"
 
+#define PANIC(x) k_print(x); while(1)
+
 typedef struct page {
 	u32_int present		: 1;
 	u32_int rw			: 1;

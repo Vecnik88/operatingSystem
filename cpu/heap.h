@@ -2,6 +2,8 @@
 #define HEAP_H
 
 #include "types.h"
+#include "vmm.h"
+#include "pmm.h"
 
 #define HEAP_START 	0xd0000000
 #define HEAP_END 	0xffbff000

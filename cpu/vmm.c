@@ -66,7 +66,15 @@ void map(u32_int va, u32_int pa, u32_int flags)
 	page_tables[virual_page] = (pa & PAGE_MASK) | flags;
 }
 
-void unmap(u32_int)
+void unmap(u32_int va)
+{
+	u32_int virtual_page = va/0x1000;
+	page_tables[virtual_page] = 0;
+
+	__asm__ __volatile__ ("invlpg (%0)" : : "a" (va));
+}
+
+s8_int get_mapping(u32_int va, u32_int* pa)
 {
 	u32_int virtual_page = va/0x1000;
 	u32_int pt_idx = PAGE_DIR_IDX(virtual_page);
@@ -74,7 +82,7 @@ void unmap(u32_int)
 	if (!page_directory[pt_idx])
 		return 0;
 
-	if (page_directory[virtual_page] != 0) {
+	if (page_tables[virtual_page] != 0) {
 		if(pa) 
 			*pa = page_tables[virtual_page] & PAGE_MASK;
 

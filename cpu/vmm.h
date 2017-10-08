@@ -2,6 +2,7 @@
 #define VMM_H
 
 #include "types.h"
+#include "isr.h"
 
 #define PAGE_DIR_VIRTUAL_ADDR	0xffbff000
 #define PAGE_TABLE_VIRTUAL_ADDR	0xffc00000

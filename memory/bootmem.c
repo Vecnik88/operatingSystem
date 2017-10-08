@@ -1,3 +1,5 @@
+#include "bootmem.h"
+
 void bootmem_init(u32_int start)
 {
 	init_pmm(start);

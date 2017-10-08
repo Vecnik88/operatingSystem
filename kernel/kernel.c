@@ -8,10 +8,11 @@
 void main(void)
 {
  	clear_screen();
+ 	k_print("                    Operations system Unix-0.0.1 load\n");
  	isr_init();
  	irq_init();
 
- 	k_print("HEllo");
+ 	k_print("Hello user :)\n");
 
 	init_pmm(0x10000000);
  	init_vmm();

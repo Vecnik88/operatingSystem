@@ -7,7 +7,7 @@ u32_int* page_tables = (u32_int*)PAGE_TABLE_VIRTUAL_ADDR;
 
 page_directory_t* current_directory;
 
-extern char pmm_paging_active;
+extern s8_int pmm_paging_active;
 
 void page_fault(registers_t* regs);
 
@@ -86,9 +86,8 @@ void page_fault(registers_t* regs)
 {
 	u32_int cr2;
 	__asm__ __volatile__("mov %%cr2, %0" : "=r" (cr2));
-	k_print("Page fault at 0x%x, faulting address 0x%x\n", regs->eip, cr2);
-  	k_print("Error code: %x\n", regs->err_code);
-  	panic ("");
+	k_print("Page fault\n");
+
   	while(1) {
 
   	}

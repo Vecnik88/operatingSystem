@@ -2,7 +2,8 @@
 #include "../drivers/monitor.h"
 #include "kernel.h"
 #include "../libc/string.h"
-#include "../memory/heap.h"
+//#include "../memory/heap.h"
+#include "../memory/bootmem.h"
 
 /* start kernel */
 void main(void)
@@ -14,9 +15,10 @@ void main(void)
 
  	k_print("Hello user :)\n");
 
-	init_pmm(0x10000000);
+ 	bootmem_init(0x10000000);
+	/*init_pmm(0x10000000);
  	init_vmm();
- 	init_heap();
+ 	init_heap();*/
 
  	u32_int *ptr = (u32_int*)0x0010000;
    	u32_int do_page_fault = *ptr;

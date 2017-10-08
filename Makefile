@@ -28,7 +28,7 @@ kernel.elf: boot/kernel_entry.o ${OBJ}
 	ld -melf_i386 -o $@ -Ttext 0x1000 $^ 
 
 run: os-image.bin
-	qemu-system-x86_64 -fda os-image.bin -m 512M
+	qemu-system-x86_64 -fda os-image.bin -m 1024M
 
 # Open the connection to qemu and load our kernel-object file with symbols
 debug: os-image.bin kernel.elf

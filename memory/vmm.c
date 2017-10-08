@@ -35,7 +35,7 @@ void init_vmm()
 	switch_page_directory(pd);
 
 	__asm__ __volatile__("mov %%cr0, %0" : "=r" (cr0));
-	cr0 |= 0x80000000;
+	cr0 |= 0x40000000;
 	__asm__ __volatile__("mov %0, %%cr0" : : "r" (cr0));
 
 	u32_int pt_idx = PAGE_DIR_IDX((PMM_STACK_ADDR >> 12));

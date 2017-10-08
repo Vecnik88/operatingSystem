@@ -15,12 +15,12 @@ void main(void)
 
  	k_print("Hello user :)\n");
 
- 	bootmem_init(0x10000000);
+ 	bootmem_init(0x80000000);
 	/*init_pmm(0x10000000);
  	init_vmm();
  	init_heap();*/
 
- 	u32_int *ptr = (u32_int*)0x0010000;
+ 	u32_int *ptr = (u32_int*)0x10000000;
    	u32_int do_page_fault = *ptr;
 }
 

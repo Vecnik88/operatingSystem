@@ -1,0 +1,16 @@
+
+            ##################################
+            #           Описание             #
+            ##################################
+
+Для запуска и тестирования достаточно использовать qemu.
+
+qemu:
+=====
+    qemu-system-x86_64 -fda os-image.bin
+
+Netwide Assembler: http://nasm.sourceforge.net
+GRUB: http://www.gnu.org/software/grub
+Bochs: http://bochs.sourceforge.net
+GCC cross compiler: http://wiki.osdev.org/GCC_Cross-Compiler
+QEMU: http://www.qemu.org

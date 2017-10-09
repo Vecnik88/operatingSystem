@@ -6,7 +6,7 @@
 #include "../memory/bootmem.h"
 
 /* start kernel */
-void main(void)
+int main()
 {
  	clear_screen();
  	k_print("                    Operations system Unix-0.0.1 load\n");

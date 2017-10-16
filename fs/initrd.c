@@ -1,6 +1,6 @@
-/* Определяется интерфейс и структуры, используемые для диска initial ramdisk */
-
 #include "initrd.h"
+
+/* Определяется интерфейс и структуры, используемые для диска initial ramdisk */
 
 initrd_header_t* initrd_header;			/* Заголовок */
 initrd_file_header_t* file_headers;		/* список заголовков файлов */

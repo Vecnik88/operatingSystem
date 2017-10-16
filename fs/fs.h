@@ -13,6 +13,14 @@
  * open_type_t, close_type_t
  * это указатели на функции
  */
+
+typedef u32_int (*read_type_t)(struct fs_node*, u32_int, u32_int, u8_int);
+typedef u32_int (*write_type_t)(struct fs_node*, u32_int, u32_int, u8_int);
+typedef void (*open_type_t)(struct fs_node*);
+typedef void (*close_type_t)(struct fs_node*);
+typedef struct dirent* (*readdir_type_t)(struct fs_node*, u32_int);
+typedef struct fs_node* (*finddir_type_t)(struct fs_node*, s8_int* name);
+
 typedef struct fs_node {
 	s8_int name[128];			/* имя файла */
 	u32_int mask;				/* маска прав доступа */
@@ -35,13 +43,6 @@ struct dirent {
 	s8_int name[128];			/* имя файла */
 	u32_int ino;				/* номер inode */
 };
-
-typedef u32_int (*read_type_t)(struct fs_node*, u32_int, u32_int, u8_int);
-typedef u32_int (*write_type_t)(struct fs_node*, u32_int, u32_int, u8_int);
-typedef void (*open_type_t)(struct fs_node*);
-typedef void (*close_type_t)(struct fs_node*);
-typedef struct dirent* (*read_type_t)(struct fs_node*, u32_int);
-typedef struct fs_node* (*finddir_type_t)(struct fs_node*, s8_int* name);
 
 extern fs_node_t* fs_root;		/* корневой нод файловой системы */
 

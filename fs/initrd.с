@@ -1,0 +1,8 @@
+#include "initrd.h"
+
+initrd_header_t *initrd_header;     	/* Заголовок */
+initrd_file_header_t *file_headers; 	/* Список файлов заголовков */
+fs_node_t *initrd_root;             	/* Корневой нод нашей директории */
+fs_node_t *initrd_dev;              	/* Также добавляем нод директория для /dev, так что мы сможем смонтировать в нем файловую систему devfs */
+fs_node_t *root_nodes;              	/* Список нодов файлов */
+int nroot_nodes;                    	/* Количество нодов файлов */

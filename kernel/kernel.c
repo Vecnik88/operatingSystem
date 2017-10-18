@@ -4,9 +4,10 @@
 #include "../libc/string.h"
 #include "../memory/heap.h"
 #include "../memory/bootmem.h"
-#include "../fs/multiboot.h"
+/*#include "../fs/multiboot.h"
 #include "../fs/fs.h"
-#include "../fs/initrd.h"
+#include "../fs/initrd.h"*/
+
 /* start kernel */
 int main()
 {
@@ -22,12 +23,12 @@ int main()
 
 
    	    // Initialise all the ISRs and segmentation
-    init_descriptor_tables();
+    //init_descriptor_tables();
     // Initialise the screen (by clearing it)
-    monitor_clear();
+    //monitor_clear();
 
     // Find the location of our initial ramdisk.
-    ASSERT(mboot_ptr->mods_count > 0);
+    /*ASSERT(mboot_ptr->mods_count > 0);
     u32_int initrd_location = *((u32_int*)mboot_ptr->mods_addr);
     u32_int initrd_end = *(u32_int*)(mboot_ptr->mods_addr+4);
     // Don't trample our module with placement accesses, please!
@@ -64,7 +65,7 @@ int main()
         i++;
     }
 
-    return 0;
+    return 0;*/
 }
 
 void user_input(s8_int* input)

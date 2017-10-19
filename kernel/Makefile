@@ -2,7 +2,7 @@
 # $@ Имя цели обрабатываемого правила
 # $< Имя первой зависимости обрабатываемого правила
 # $^ Список всех зависимостей обрабатываемого правила 
-SOURCES = boot.o kernel.o
+SOURCES = boot.o kernel.o screen.o port.o
 
 CFLAGS=-nostdlib -nostdinc -fno-builtin -fno-stack-protector -m32
 LDLFLAGS=-Tlink.ld -melf_i386
@@ -18,7 +18,7 @@ link:
 
 .s.o:
 	nasm $< -f elf -o $@
-	
+
 #nasm $(ASFLAGS) $<
 
 #C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c libc/*.c memory/*.c)

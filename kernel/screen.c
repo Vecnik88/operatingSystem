@@ -121,18 +121,18 @@ void write_screen_hex(u32_int n)
     
         if (tmp >= 0xA) {
             no_zero = 0;
-            put_screen (tmp - 0xA + 'a' );
+            put_screen(tmp - 0xA + 'a');
         } else {
             no_zero = 0;
-            put_screen( tmp + '0' );
+            put_screen(tmp + '0');
         }
     }
   
     tmp = n & 0xF;
     if (tmp >= 0xA) {
-        monitor_put (tmp - 0xA + 'a');
+        put_screen(tmp - 0xA + 'a');
     } else {
-        monitor_put (tmp + '0');
+        put_screen(tmp + '0');
     }
 }
 

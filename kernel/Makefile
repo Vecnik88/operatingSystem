@@ -2,7 +2,7 @@
 # $@ Имя цели обрабатываемого правила
 # $< Имя первой зависимости обрабатываемого правила
 # $^ Список всех зависимостей обрабатываемого правила 
-SOURCES = boot.o kernel.o screen.o port.o
+SOURCES = boot.o kernel.o screen.o port.o string.o descriptor_table.o isr.o interrupt.o gdt.o
 
 CFLAGS=-nostdlib -nostdinc -fno-builtin -fno-stack-protector -m32
 LDLFLAGS=-Tlink.ld -melf_i386
@@ -10,6 +10,9 @@ ASFLAGS=-felf
 
 all: $(SOURCES) link
 
+run:
+	qemu-system-x86_64 -kernel kernel -m 512M
+	
 clean:
 	-rm -rf *.o kernel
 

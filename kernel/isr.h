@@ -12,5 +12,4 @@ typedef struct registers
     u32_int eip, cs, eflags, useresp, ss;
 } registers_t;
 
-
 #endif

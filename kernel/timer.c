@@ -8,7 +8,6 @@ static void timer_callback(registers_t reg)
 	screen_write("Tick: ");
 	screen_write_dec(tick);
     add_screen_char('\n');
-	//screen_write("\n");
 }
 
 void init_timer(u32_int frequency)

@@ -164,34 +164,3 @@ void screen_write_dec(u32_int n)
     reverse(str);
     screen_write(str);
 }
-
-
-
-/*void screen_write_dec(u32_int n)
-{
-    if (n == 0) {
-        add_screen_char('0');
-        return;
-    }
-
-    s32_int acc = n;
-    s8_int c[32];
-    s32_int i = 0;
-    while (acc > 0) {
-        c[i] = '0' + acc % 10;
-        acc /= 10;
-        i++;
-    }
-    c[i] = '0';
-
-    s8_int c2[32];
-    c2[i--] = '0';
-    s32_int j = 0;
-
-    while(i) {
-        c2[i--] = c[j++];
-    }
-
-    screen_write(c2);
-}
-*/

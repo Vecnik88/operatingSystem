@@ -125,7 +125,49 @@ void screen_write_hex(u32_int n)
     }
 }
 
+s32_int strlen(u8_int* str)
+{
+    s32_int count = 0;
+    while (str[count])
+        ++count;
+
+    return count;
+}
+
+void reverse(u8_int* str)
+{
+    s32_int c, i, j;
+    for (i = 0, j = strlen(str)-1; i < j; ++i, --j) {
+        c = str[i];
+        str[i] = str[j];
+        str[j] = c;
+    }
+}
+
 void screen_write_dec(u32_int n)
+{
+    s32_int i = 0, sign = n;
+    s8_int str[32];
+
+    if (sign < 0)
+        n = -n;
+
+    do {
+        str[i++] = n % 10 + '0';
+    } while ((n/=10) > 0);
+
+    if (sign < 0)
+        str[i++] = '-';
+
+    str[i] = '\0';
+
+    reverse(str);
+    screen_write(str);
+}
+
+
+
+/*void screen_write_dec(u32_int n)
 {
     if (n == 0) {
         add_screen_char('0');
@@ -134,7 +176,7 @@ void screen_write_dec(u32_int n)
 
     s32_int acc = n;
     s8_int c[32];
-    u32_int i = 0;
+    s32_int i = 0;
     while (acc > 0) {
         c[i] = '0' + acc % 10;
         acc /= 10;
@@ -144,11 +186,12 @@ void screen_write_dec(u32_int n)
 
     s8_int c2[32];
     c2[i--] = '0';
-    u32_int j = 0;
+    s32_int j = 0;
 
-    while(i >= 0) {
+    while(i) {
         c2[i--] = c[j++];
     }
 
     screen_write(c2);
 }
+*/

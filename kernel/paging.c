@@ -130,14 +130,14 @@ void paging_init()
 void switch_page_directory(page_directory_t *dir)
 {
     current_directory = dir;
-    asm volatile("mov %0, %%cr3":: "r"(&dir->tablesPhysical));
-    u32int cr0;
+    asm volatile("mov %0, %%cr3":: "r"(&dir->tables_physical));
+    u32_int cr0;
     asm volatile("mov %%cr0, %0": "=r"(cr0));
-    cr0 |= 0x80000000; // Enable paging!
+    cr0 |= 0x80000000;
     asm volatile("mov %0, %%cr0":: "r"(cr0));
 }
 
-page_t *get_page(u32int address, int make, page_directory_t *dir)
+page_t *get_page(u32_int address, int make, page_directory_t *dir)
 {
     /* превращаем адрес в индекс */
     address /= 0x1000;

@@ -14,9 +14,9 @@
 **/
 u32_int kmalloc_int(u32_int sz, s32_int align, u32_int *phys);
 
-u32int kmalloc_a(u32int sz);
-u32int kmalloc_p(u32int sz, u32int *phys);
-u32int kmalloc_ap(u32int sz, u32int *phys);
-u32int kmalloc(u32int sz);
+u32_int kmalloc_a(u32_int sz);
+u32_int kmalloc_p(u32_int sz, u32_int *phys);
+u32_int kmalloc_ap(u32_int sz, u32_int *phys);
+u32_int kmalloc(u32_int sz);
 
 #endif /* KHEAP_H */

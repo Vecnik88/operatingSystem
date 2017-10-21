@@ -2,7 +2,7 @@
 # $@ Имя цели обрабатываемого правила
 # $< Имя первой зависимости обрабатываемого правила
 # $^ Список всех зависимостей обрабатываемого правила 
-SOURCES = boot.o main.o screen.o port.o descriptor_tables.o isr.o interrupt.o gdt.o timer.o
+SOURCES = boot.o main.o screen.o port.o descriptor_tables.o isr.o interrupt.o gdt.o timer.o kheap.o paging.o
 
 CFLAGS=-nostdlib -nostdinc -fno-builtin -fno-stack-protector -m32
 LDLFLAGS=-Tlink.ld -melf_i386

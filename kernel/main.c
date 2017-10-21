@@ -4,13 +4,11 @@
 void start_kernel(struct multiboot *mboot_ptr)
 {
 	init_descriptor_tables();
-
 	screen_clear();
-	screen_write("Hello world\n");
 
-	asm volatile("int $0x3");
-    asm volatile("int $0x4");
+	paging_init();
+	screen_write("Hello, paging world!\n");
 
-    asm volatile("sti");
-    init_timer(50);
+   u32_int *ptr = (u32_int*)0xA0000000;
+   u32_int do_page_fault = *ptr;
 }

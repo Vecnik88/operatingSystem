@@ -5,7 +5,7 @@ extern u32_int end;
 
 u32_int placement_address = (u32_int)&end;
 
-u32int kmalloc_int(u32int sz, s32_int align, u32_int *phys)
+u32_int kmalloc_int(u32_int sz, s32_int align, u32_int *phys)
 {
     if (align == 1 && (placement_address & 0xFFFFF000) ) {
         placement_address &= 0xFFFFF000;

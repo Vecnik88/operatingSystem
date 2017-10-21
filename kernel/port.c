@@ -1,4 +1,5 @@
 #include "port.h"
+#include "screen.h"
 
 u8_int in_byte(u16_int port)
 {

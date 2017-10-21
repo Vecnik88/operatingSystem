@@ -3,7 +3,6 @@
 
 #include "port.h"
 #include "isr.h"
-#include "kheap.h"
 
 /* описывает страницу в памяти */
 typedef struct page {
@@ -68,7 +67,7 @@ void switch_page_directory(page_directory_t *new);
 	Если make == 1 в таблице страниц, в которой эта страница должна располагаться,
 	то страница не создана - создайте страницу!
 **/
-page_t *get_page(u32int address, int make, page_directory_t *dir);
+page_t *get_page(u32_int address, s32_int make, page_directory_t *dir);
 
 /* handler page_fault */
 void page_fault(registers_t regs);

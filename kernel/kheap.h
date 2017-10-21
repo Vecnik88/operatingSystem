@@ -12,7 +12,7 @@
    представления параметров доступны в kmalloc, kmalloc_a,
    kmalloc_ap, kmalloc_p.
 **/
-u32_int kmalloc_int(u32_int sz, s32_int align, u32_int *phys);
+u32_int kmalloc_int(u32_int sz, int align, u32_int *phys);
 
 u32_int kmalloc_a(u32_int sz);
 u32_int kmalloc_p(u32_int sz, u32_int *phys);

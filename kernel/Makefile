@@ -4,7 +4,7 @@
 # $^ Список всех зависимостей обрабатываемого правила 
 SOURCES = boot.o main.o screen.o port.o descriptor_tables.o isr.o interrupt.o gdt.o timer.o kheap.o paging.o
 
-CFLAGS=-nostdlib -nostdinc -fno-builtin -fno-stack-protector -m32
+CFLAGS=-g -ffreestanding -m32 -O0
 LDLFLAGS=-Tlink.ld -melf_i386
 ASFLAGS=-felf
 

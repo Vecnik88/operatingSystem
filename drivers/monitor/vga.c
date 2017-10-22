@@ -46,23 +46,25 @@ static void set_position_cursor()
 
 static scroll()
 {
-	uint8_t attributeByte = (0 /*black*/ << 4) | (15 /*white*/ & 0x0F);
-    uint16_t blank = 0x20 /* space */ | (attributeByte << 8);
-
     if(cursor_line >= LINES) {
         int i;
         for (i = 0; i < LINES_SCREEN * COLUMNS; i++)
             video_memory[i] = video_memory[i + COLUMNS];
 
+        set_blank_attr();
+        
         for (i = LINES_SCREEN * COLUMNS; i < LINES * COLUMNS; i++)
             video_memory[i] = blank;
+
+        vga_set_color_text_white();
 
         cursor_line = LINES_SCREEN;
     }
 }
 
 /* API для удобства работы с цветом текста */
-static inline uint8_t vga_entry_color(enum vga_color fore_color, enum vga_color background_color)
+static inline uint8_t vga_entry_color(enum vga_color fore_color, 
+									  enum vga_color background_color)
 {
 	return fore_color | background_color << 4;
 }
@@ -147,7 +149,7 @@ static inline void vga_set_color_text_white()
 	text_color = VGA_COLOR_WHITE | (VGA_COLOR_BLACK << 4);
 }
 
-static inline uint16_t get_blank_attr()
+static inline uint16_t set_blank_attr()
 {
 	return 0x20 | (text_color << 8);
 }

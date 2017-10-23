@@ -27,6 +27,8 @@ enum vga_color {
 	VGA_COLOR_WHITE 		= 15,
 };
 
+typedef uint32_t size_t;
+
 static uint32_t cursor_col = 0;
 static uint32_t cursor_line = 0;
 static uint8_t text_color = VGA_COLOR_WHITE | (VGA_COLOR_BLACK << 4);
@@ -210,4 +212,90 @@ void monitor_init()
 	cursor_line = 0;
 	cursor_col = 0;
 	vga_set_color_text_white();
+}
+
+size_t strlen(const char* str)
+{
+	size_t i = 0;
+	while (str[i])
+		++i;
+
+	return i;
+}
+
+static bool print(const char* data, size_t length) {
+	const unsigned char* bytes = (const unsigned char*) data;
+	for (size_t i = 0; i < length; i++)
+			monitor_put_char(bytes[i]);
+		/*
+		if (monitor_put_char(bytes[i]) == EOF)
+			return false;*/
+	return true;
+}
+ 
+int printf(const char* restrict format, ...) {
+	va_list parameters;
+	va_start(parameters, format);
+ 
+	int written = 0;
+ 
+	while (*format != '\0') {
+		size_t maxrem = /*INT_MAX*/ 8192 - written;
+ 
+		if (format[0] != '%' || format[1] == '%') {
+			if (format[0] == '%')
+				format++;
+			size_t amount = 1;
+			while (format[amount] && format[amount] != '%')
+				amount++;
+			if (maxrem < amount) {
+				// TODO: Set errno to EOVERFLOW.
+				return -1;
+			}
+			if (!print(format, amount))
+				return -1;
+			format += amount;
+			written += amount;
+			continue;
+		}
+ 
+		const char* format_begun_at = format++;
+ 
+		if (*format == 'c') {
+			format++;
+			char c = (char) va_arg(parameters, int /* char promotes to int */);
+			if (!maxrem) {
+				// TODO: Set errno to EOVERFLOW.
+				return -1;
+			}
+			if (!print(&c, sizeof(c)))
+				return -1;
+			written++;
+		} else if (*format == 's') {
+			format++;
+			const char* str = va_arg(parameters, const char*);
+			size_t len = strlen(str);
+			if (maxrem < len) {
+				// TODO: Set errno to EOVERFLOW.
+				return -1;
+			}
+			if (!print(str, len))
+				return -1;
+			written += len;
+		} else {
+			format = format_begun_at;
+			size_t len = strlen(format);
+			if (maxrem < len) {
+				// TODO: Set errno to EOVERFLOW.
+				return -1;
+			}
+			if (!print(format, len))
+				return -1;
+			written += len;
+			format += len;
+		}
+	}
+ 
+	va_end(parameters);
+	return written;
 }

@@ -227,13 +227,10 @@ static bool print(const char* data, size_t length) {
 	const unsigned char* bytes = (const unsigned char*) data;
 	for (size_t i = 0; i < length; i++)
 			monitor_put_char(bytes[i]);
-		/*
-		if (monitor_put_char(bytes[i]) == EOF)
-			return false;*/
 	return true;
 }
  
-int print_k(const char* restrict format, ...) {
+int32_t print_k(const char* restrict format, ...) {
 	va_list parameters;
 	va_start(parameters, format);
  

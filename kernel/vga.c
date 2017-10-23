@@ -124,6 +124,7 @@ static inline uint16_t get_blank_attr()
 	uint8_t blank = text_color;
 	return 0x20 | (blank << 8);
 }
+
 /* обновляет позицию курсора в соответствии с видеобуфером */
 static void set_position_cursor()
 {
@@ -208,72 +209,5 @@ void monitor_init()
 {
 	cursor_line = 0;
 	cursor_col = 0;
-	vga_set_color_text_cyan();
+	vga_set_color_text_white();
 }
-/*
-int print_k(const char* restrict format, ...) {
-	va_list parameters;
-	va_start(parameters, format);
- 
-	int written = 0;
- 
-	while (*format != '\0') {
-		size_t maxrem = INT_MAX - written;
- 
-		if (format[0] != '%' || format[1] == '%') {
-			if (format[0] == '%')
-				format++;
-			size_t amount = 1;
-			while (format[amount] && format[amount] != '%')
-				amount++;
-			if (maxrem < amount) {
-				// TODO: Set errno to EOVERFLOW.
-				return -1;
-			}
-			if (!print(format, amount))
-				return -1;
-			format += amount;
-			written += amount;
-			continue;
-		}
- 
-		const char* format_begun_at = format++;
- 
-		if (*format == 'c') {
-			format++;
-			char c = (char) va_arg(parameters, int);
-			if (!maxrem) {
-				// TODO: Set errno to EOVERFLOW.
-				return -1;
-			}
-			if (!print(&c, sizeof(c)))
-				return -1;
-			written++;
-		} else if (*format == 's') {
-			format++;
-			const char* str = va_arg(parameters, const char*);
-			size_t len = strlen(str);
-			if (maxrem < len) {
-				// TODO: Set errno to EOVERFLOW.
-				return -1;
-			}
-			if (!print(str, len))
-				return -1;
-			written += len;
-		} else {
-			format = format_begun_at;
-			size_t len = strlen(format);
-			if (maxrem < len) {
-				// TODO: Set errno to EOVERFLOW.
-				return -1;
-			}
-			if (!print(format, len))
-				return -1;
-			written += len;
-			format += len;
-		}
-	}
- 
-	va_end(parameters);
-	return written;
-}*/

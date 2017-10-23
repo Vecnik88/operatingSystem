@@ -1,4 +1,4 @@
-#include <AOS-unix/vga.h>	
+#include "vga.h"	
 
 #define LINES				25
 #define LINES_SCREEN		24
@@ -31,36 +31,6 @@ static uint32_t cursor_col = 0;
 static uint32_t cursor_line = 0;
 static uint8_t text_color = VGA_COLOR_WHITE | (VGA_COLOR_BLACK << 4);
 static short *video_memory = (short *)VGA_BUFFER_START;
-
-
-
-static void set_position_cursor()
-{
-	uint16_t position_cursor = cursor_col * COLUMNS + cursor_line;
-
-	out_byte(VGA_PORT_COMMAND, 14);
-	out_byte(VGA_PORT_DATA, (position_cursor << 8));
-	out_byte(VGA_PORT_COMMAND, 15);
-	out_byte(VGA_PORT_DATA, position_cursor);
-}
-
-static scroll()
-{
-    if(cursor_line >= LINES) {
-        int i;
-        for (i = 0; i < LINES_SCREEN * COLUMNS; i++)
-            video_memory[i] = video_memory[i + COLUMNS];
-
-        set_blank_attr();
-        
-        for (i = LINES_SCREEN * COLUMNS; i < LINES * COLUMNS; i++)
-            video_memory[i] = blank;
-
-        vga_set_color_text_white();
-
-        cursor_line = LINES_SCREEN;
-    }
-}
 
 /* API для удобства работы с цветом текста */
 static inline uint8_t vga_entry_color(enum vga_color fore_color, 
@@ -149,7 +119,150 @@ static inline void vga_set_color_text_white()
 	text_color = VGA_COLOR_WHITE | (VGA_COLOR_BLACK << 4);
 }
 
-static inline uint16_t set_blank_attr()
+static inline uint16_t get_blank_attr()
 {
 	return 0x20 | (text_color << 8);
 }
+
+static void set_position_cursor()
+{
+	uint16_t position_cursor = cursor_col * COLUMNS + cursor_line;
+
+	out_byte(VGA_PORT_COMMAND, 14);
+	out_byte(VGA_PORT_DATA, (position_cursor << 8));
+	out_byte(VGA_PORT_COMMAND, 15);
+	out_byte(VGA_PORT_DATA, position_cursor);
+}
+
+static void scroll()
+{
+    if(cursor_line >= LINES) {
+        int i;
+        for (i = 0; i < LINES_SCREEN * COLUMNS; i++)
+            video_memory[i] = video_memory[i + COLUMNS];
+
+        uint16_t get_blank_attr();
+        
+        for (i = LINES_SCREEN * COLUMNS; i < LINES * COLUMNS; i++)
+            video_memory[i] = blank;
+
+        cursor_line = LINES_SCREEN;
+    }
+}
+
+void monitor_put_char(char symbol)
+{
+    uint16_t *location;
+
+    if (c == 0x08 && cursor_col) {
+        cursor_col--;
+    } else if (c == 0x09) {
+        cursor_col = (cursor_col + 8) & ~(8 - 1);
+    } else if (c == '\r') {
+        cursor_col = 0;
+    } else if (c == '\n') {
+        cursor_col = 0;
+        cursor_line++;
+    } else if(c >= ' ') {
+        location = video_memory + (cursor_line * 80 + cursor_col);
+        *location = symbol | text_color;
+        cursor_col++;
+    }
+
+    if (cursor_col >= 80) {
+        cursor_col = 0;
+        cursor_line++;
+    }
+
+    scroll();
+    set_position_cursor();
+}
+
+void monitor_clear()
+{
+	uint16_t blank = get_blank_attr();
+
+	int i;
+	for (i = 0; i <= LINES * COLUMNS; ++i)
+		video_memory[i] = blank;
+
+	cursor_col = 0;
+	cursor_line = 0;
+
+	set_position_cursor();
+}
+
+void monitor_write(char* str)
+{
+	int i = 0;
+	while (str)
+		monitor_put_char(str[i++]);
+}
+
+/*
+int print_k(const char* restrict format, ...) {
+	va_list parameters;
+	va_start(parameters, format);
+ 
+	int written = 0;
+ 
+	while (*format != '\0') {
+		size_t maxrem = INT_MAX - written;
+ 
+		if (format[0] != '%' || format[1] == '%') {
+			if (format[0] == '%')
+				format++;
+			size_t amount = 1;
+			while (format[amount] && format[amount] != '%')
+				amount++;
+			if (maxrem < amount) {
+				// TODO: Set errno to EOVERFLOW.
+				return -1;
+			}
+			if (!print(format, amount))
+				return -1;
+			format += amount;
+			written += amount;
+			continue;
+		}
+ 
+		const char* format_begun_at = format++;
+ 
+		if (*format == 'c') {
+			format++;
+			char c = (char) va_arg(parameters, int /* char promotes to int */);
+			if (!maxrem) {
+				// TODO: Set errno to EOVERFLOW.
+				return -1;
+			}
+			if (!print(&c, sizeof(c)))
+				return -1;
+			written++;
+		} else if (*format == 's') {
+			format++;
+			const char* str = va_arg(parameters, const char*);
+			size_t len = strlen(str);
+			if (maxrem < len) {
+				// TODO: Set errno to EOVERFLOW.
+				return -1;
+			}
+			if (!print(str, len))
+				return -1;
+			written += len;
+		} else {
+			format = format_begun_at;
+			size_t len = strlen(format);
+			if (maxrem < len) {
+				// TODO: Set errno to EOVERFLOW.
+				return -1;
+			}
+			if (!print(format, len))
+				return -1;
+			written += len;
+			format += len;
+		}
+	}
+ 
+	va_end(parameters);
+	return written;
+}*/

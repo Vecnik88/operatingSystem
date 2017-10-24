@@ -213,21 +213,3 @@ void monitor_init()
 	cursor_col = 0;
 	vga_set_color_text_white();
 }
-
-size_t strlen(const char* str)
-{
-	size_t i = 0;
-	while (str[i])
-		++i;
-
-	return i;
-}
-
-static bool print(const char* data, size_t length) {
-	const unsigned char* bytes = (const unsigned char*) data;
-	for (size_t i = 0; i < length; i++)
-			monitor_put_char(bytes[i]);
-	return true;
-}
-
-//##############################################################################################################################

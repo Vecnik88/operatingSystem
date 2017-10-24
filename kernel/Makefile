@@ -2,7 +2,7 @@
 # $@ Имя цели обрабатываемого правила
 # $< Имя первой зависимости обрабатываемого правила
 # $^ Список всех зависимостей обрабатываемого правила 
-SOURCES = boot.o kernel.o port.o vga.o
+SOURCES = boot.o kernel.o port.o vga.o print_k.o
 
 CFLAGS=-g -ffreestanding -m32 -O0
 LDLFLAGS=-Tlink.ld -melf_i386

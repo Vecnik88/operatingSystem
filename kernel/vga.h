@@ -10,6 +10,5 @@
 void monitor_init();
 void monitor_write(char* str);
 void monitor_clear();
-int32_t print_k(const char* restrict format, ...);
 
 #endif	/* VGA_H */

@@ -1,4 +1,4 @@
-#include "vbe.h"
+#include <AOS-unix/vbe.h>
 
 void vbe_write(uint16_t index, uint16_t value)
 {

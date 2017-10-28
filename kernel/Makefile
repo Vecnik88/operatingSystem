@@ -7,9 +7,11 @@ CC=gcc
 GDB=gdb
 SOURCES = boot.o kernel.o port.o vga.o printk.o vbe.o vga_graph.o
 
-CFLAGS=-g -ffreestanding -m32 -O0
+CFLAGS=-g -ffreestanding -m32 -O0 -I$(INC) -I../
 LDLFLAGS=-Tlink.ld -melf_i386
 ASFLAGS=-felf
+
+INC=../include
 
 all: $(SOURCES) link
 

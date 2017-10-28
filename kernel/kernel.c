@@ -1,8 +1,8 @@
-#include "multiboot.h"
-#include "vga.h"
-#include "printk.h"
-#include "vbe.h"
-#include "vga_graph.h"
+#include <AOS-unix/multiboot.h>
+#include <AOS-unix/vga.h>
+#include <AOS-unix/printk.h>
+//#include <AOS-unix/vbe.h>
+#include <AOS-unix/vga_graph.h>
 
 int start_kernel(struct multiboot* multiboot)
 {
@@ -15,6 +15,9 @@ int start_kernel(struct multiboot* multiboot)
 	//vbe_set(200, 200, 200);
 	printk("Hello 0x%lu-0x%lu", 52320390239, 42342);
 
-	VGA_init();
+	//VGA_init();
+	//monitor_clear();
+	printk("Hello 0x%lu-0x%lu", 52320390239, 42342);
+	//monitor_write("Your kernel run bro\n");
 }
 

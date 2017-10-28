@@ -1,4 +1,4 @@
-#include "vga_graph.h"
+#include <AOS-unix/vga_graph.h>
 
 //the vga identifiers
 unsigned int VGA_width;
@@ -47,7 +47,7 @@ unsigned char mode_320_200_256[]={
     * map select register, 0x03
     * no character map enabled
     */
-   0x00,
+   0x0,
    /**
     * memory mode register 0x04
     * enables ch4,odd/even,extended memory

@@ -1,4 +1,5 @@
-#include "vga.h"	
+//#include "vga.h"	
+#include <AOS-unix/vga.h>	
 
 #define LINES				25
 #define LINES_SCREEN		24

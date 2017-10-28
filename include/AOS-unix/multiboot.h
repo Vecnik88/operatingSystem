@@ -95,7 +95,7 @@
      
      #include <stdint.h>
 
-    typedef uint8_t   multiboot_uint8_t
+    typedef uint8_t   multiboot_uint8_t;
     typedef uint16_t  multiboot_uint16_t;
     typedef uint32_t  multiboot_uint32_t;
     typedef uint64_t  multiboot_uint64_t;

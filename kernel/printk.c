@@ -1,4 +1,4 @@
-#include "print_k.h"
+#include "printk.h"
 
 unsigned long simple_strtoul(const char *cp, char **endp, unsigned int base)
 {

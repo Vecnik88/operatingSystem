@@ -1,8 +1,11 @@
 # Makefile по сборке AOS
 # $@ Имя цели обрабатываемого правила
 # $< Имя первой зависимости обрабатываемого правила
-# $^ Список всех зависимостей обрабатываемого правила 
-SOURCES = boot.o kernel.o port.o vga.o print_k.o
+# $^ Список всех зависимостей обрабатываемого правила
+
+CC=gcc
+GDB=gdb
+SOURCES = boot.o kernel.o port.o vga.o printk.o vbe.o vga_graph.o
 
 CFLAGS=-g -ffreestanding -m32 -O0
 LDLFLAGS=-Tlink.ld -melf_i386

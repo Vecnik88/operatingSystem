@@ -1,4 +1,5 @@
 #include <AOS-unix/printk.h>
+#include <AOS-unix/string.h>
 
 unsigned long simple_strtoul(const char *cp, char **endp, unsigned int base)
 {
@@ -118,15 +119,6 @@ static char *number(char *str, int num, int base,
 	return str;
 }
 
-int strlen(const char* buf)
-{
-	int i = 0;
-
-	while(buf[i]);
-		i++;
-
-	return i;
-}
 int vsprintf(char *buf, const char *fmt, va_list args)
 {
 	int len;

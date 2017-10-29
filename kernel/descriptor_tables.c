@@ -69,7 +69,7 @@ static void idt_set_gate(uint8_t num, uint32_t base, uint16_t sel, uint8_t flags
 	idt_entries[num].always0 = 0x0;
 
 	/* расскоментировать для пользовательского режима(3) */
-	idt_entries[num].flags = flags /* | 0x60 */
+	idt_entries[num].flags = flags; /* | 0x60 */
 }
 
 static void init_gdt()

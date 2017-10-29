@@ -5,7 +5,8 @@
 
 CC=gcc
 GDB=gdb
-SOURCES = boot.o kernel.o port.o vga.o printk.o vbe.o vga_graph.o
+SOURCES = boot.o kernel.o port.o vga.o printk.o vbe.o vga_graph.o isr.o \
+			descriptor_tables.o gdt.o string.o interrupt.o 
 
 CFLAGS=-g -ffreestanding -m32 -O0 -I$(INC) -I../
 LDLFLAGS=-Tlink.ld -melf_i386

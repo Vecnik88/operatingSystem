@@ -1,4 +1,5 @@
 [global gdt_flush]
+[global idt_flush]
 
 gdt_flush:
 	mov eax, [esp + 4]	; берем переданные значения со стека(указатель на таблицу gdt)
@@ -11,4 +12,9 @@ gdt_flush:
 	mov ss, ax
 	jmp 0x08:.flush 	; изменяем таким образом сегмент кода и переходим к выполнению кода ядра
 .flush:
+	ret
+
+idt_flush:
+	mov eax, [esp + 4]
+	lidt [eax]
 	ret

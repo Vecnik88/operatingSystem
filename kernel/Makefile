@@ -5,7 +5,7 @@
 
 CC=gcc
 GDB=gdb
-SOURCES = boot.o kernel.o port.o vga.o printk.o vbe.o vga_graph.o isr.o \
+SOURCES = boot.o kernel.o port.o vga.o printk.o isr.o \
 			descriptor_tables.o gdt.o string.o interrupt.o timer.o
 
 CFLAGS=-g -ffreestanding -m32 -O0 -I$(INC) -I../

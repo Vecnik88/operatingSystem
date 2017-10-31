@@ -1,8 +1,12 @@
 #include <AOS-unix/descriptor_tables.h>
 #include <AOS-unix/port.h>
+#include <AOS-unix/isr.h>
+#include <AOS-unix/printk.h>
 
 extern void gdt_flush(uint32_t addr_gdt);
 extern void idt_flush(uint32_t addr_idt);
+
+extern isr_t interrupt_handlers[];
 
 static void init_gdt();
 static void init_idt();
@@ -19,6 +23,11 @@ void gdt_idt_init()
 {
 	init_gdt();
 	init_idt();
+
+	memset(&interrupt_handlers, 0, sizeof(isr_t)*256);
+
+	printk("gdt_idt_init");
+	monitor_write("Your kernel run bro\n");
 }
 
 static void init_idt()
@@ -26,7 +35,18 @@ static void init_idt()
 	idt_ptr.limit = sizeof(idt_desc_t) * 256 - 1;
 	idt_ptr.base = (uint32_t)&idt_entries;
 
-	memset(&idt_entries, 0, sizeof(idt_entries) * 256);
+	memset(&idt_entries, 0, sizeof(idt_desc_t) * 256);
+
+	out_byte(0x20, 0x11);
+	out_byte(0xA0, 0x11);
+	out_byte(0x21, 0x20);
+	out_byte(0xA1, 0x28);
+	out_byte(0x21, 0x04);
+	out_byte(0xA1, 0x02);
+	out_byte(0x21, 0x01);
+	out_byte(0xA1, 0x01);
+	out_byte(0x21, 0x0);
+	out_byte(0xA1, 0x0);
 
 	idt_set_gate(0, (uint32_t) isr0, 0x08, 0x8e);
 	idt_set_gate(1, (uint32_t) isr1, 0x08, 0x8e);
@@ -60,17 +80,6 @@ static void init_idt()
 	idt_set_gate(29, (uint32_t) isr29, 0x08, 0x8e);
 	idt_set_gate(30, (uint32_t) isr30, 0x08, 0x8e);
 	idt_set_gate(31, (uint32_t) isr31, 0x08, 0x8e);
-
-	/* инициалзируем PIC */
-	out_byte(0x20, 0x11);
-	out_byte(0xA0, 0x11);
-	out_byte(0x21, 0x20);
-	out_byte(0xA1, 0x28);
-	out_byte(0x21, 0x02);
-	out_byte(0xA1, 0x01);
-	out_byte(0x21, 0x0);
-	out_byte(0xA1, 0x0);
-
 	/* устанавливаем обработчики на аппаратные прерывания */
 	idt_set_gate(32, (uint32_t) irq0, 0x08, 0x8e);
 	idt_set_gate(33, (uint32_t) irq1, 0x08, 0x8e);

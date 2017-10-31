@@ -1,5 +1,4 @@
 [global gdt_flush]
-[global idt_flush]
 
 gdt_flush:
 	mov eax, [esp + 4]	; берем переданные значения со стека(указатель на таблицу gdt)
@@ -14,6 +13,7 @@ gdt_flush:
 .flush:
 	ret
 
+[global idt_flush]
 idt_flush:
 	mov eax, [esp + 4]
 	lidt [eax]

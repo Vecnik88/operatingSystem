@@ -7,23 +7,24 @@
 
 int start_kernel(struct multiboot* multiboot)
 { 
-	gdt_idt_init();
+	
 	monitor_init();
 	monitor_clear();
-	printk("gdt_init\n");
+	gdt_idt_init();
+	//printk("gdt_init\n");
 	//monitor_put_char('a');
-	monitor_write("Your kernel run bro\n");
-	monitor_write("Your kernel run bro\n");
+	//monitor_write("Your kernel run bro\n");
+	//monitor_write("Your kernel run bro\n");
 	//vbe_set(1200, 1200, 1200);
 	//vbe_set(200, 200, 200);
-	printk("Hello 0x%lu-0x%lu", 52320390239, 42342);
+	//printk("Hello 0x%lu-0x%lu", 52320390239, 42342);
 
 	//VGA_init();
 	//monitor_clear();
-	printk("Hello 0x%lu-0x%lu", 52320390239, 42342);
+	//printk("Hello 0x%lu-0x%lu", 52320390239, 42342);
 	//monitor_write("Your kernel run bro\n");
-	init_timer(50);
-	printk("timer init");
+	init_timer(100);
+	//printk("timer init");
 	//asm volatile ("int $0x3");
 	//asm volatile ("int $0x4");
 }

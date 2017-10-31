@@ -1,5 +1,5 @@
 %macro ISR_NOERRCODE 1
-[global isr%1]		; %1 доступ к первому параметру
+global isr%1		; %1 доступ к первому параметру
 isr%1:
 	cli					; запрещаем все прерывания
 	push byte 0			; помещаем в стек фиктивный код ошибки
@@ -8,7 +8,7 @@ isr%1:
 %endmacro
 
 %macro ISR_ERRCODE 1
-[global isr%1]
+global isr%1
 isr%1:
 	cli
 	push byte %1
@@ -16,7 +16,7 @@ isr%1:
 %endmacro
 
 %macro IRQ 2
-[global irq%1]
+global irq%1
 irq%1:
 	cli
 	push byte 0

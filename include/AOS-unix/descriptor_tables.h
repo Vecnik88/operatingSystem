@@ -1,6 +1,10 @@
 #ifndef DESCRIPTOR_TABLE_H
 #define DESCRIPTOR_TABLE_H
 
+#include <stdarg.h>
+#include <stdint.h>
+#include <AOS-unix/string.h>
+
 struct gdt_desc {
 	uint16_t limit_low;		/* младшие 16 битов значения limit */
 	uint16_t base_low;		/* младшие 16 битов адресной базы */
@@ -25,13 +29,13 @@ struct gdt_desc {
 	uint8_t base_high;		/* последние 8 бит адресной базы */
 } __attribute__((packed));
 
-typedef struct gdt_desc gdt_desc;
+typedef struct gdt_desc gdt_desc_t;
 
 struct gdt_ptr {
 	uint16_t limit;		/* размер таблицы gdt */
 	uint32_t base;		/* адрес первого дескриптора(нулевого) */
 } __attribute__ ((packed));
-typedef gdt_ptr gdt_ptr_t;
+typedef struct gdt_ptr gdt_ptr_t;
 
 struct idt_desk {
 	uint16_t base_lo;	/* младшие 16 битов куда происходит переход */
@@ -40,13 +44,13 @@ struct idt_desk {
 	uint8_t flags;		/* флаги */
 	uint16_t base_hi;	/* старшие 16 битов адресов куда происходит переход */
 } __attribute__ ((packed));
-typedef idt_desk idt_desk_t;
+typedef struct idt_desk idt_desc_t;
 
 struct idt_ptr {
 	uint16_t limit;		/* размер таблицы idt */
 	uint32_t base;		/* адрес первого элемента массива idt */
-}
-typedef idt_ptr idt_ptr_t;
+} __attribute__((packed));
+typedef struct idt_ptr idt_ptr_t;
 
 void gdt_idt_init();
 
@@ -83,5 +87,22 @@ extern void isr28();
 extern void isr29();
 extern void isr30();
 extern void isr31();
+
+extern void irq0();
+extern void irq1();
+extern void irq2();
+extern void irq3();
+extern void irq4();
+extern void irq5();
+extern void irq6();
+extern void irq7();
+extern void irq8();
+extern void irq9();
+extern void irq10();
+extern void irq11();
+extern void irq12();
+extern void irq13();
+extern void irq14();
+extern void irq15();
 
 #endif	/* DESCRIPTOR_TABLE_H */

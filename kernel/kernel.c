@@ -3,10 +3,11 @@
 #include <AOS-unix/printk.h>
 #include <AOS-unix/descriptor_tables.h>
 #include <AOS-unix/vga_graph.h>
+#include <AOS-unix/timer.h>
 
 int start_kernel(struct multiboot* multiboot)
-{
-	void gdt_idt_init();
+{ 
+	gdt_idt_init();
 	monitor_init();
 	monitor_clear();
 	printk("gdt_init\n");
@@ -21,7 +22,9 @@ int start_kernel(struct multiboot* multiboot)
 	//monitor_clear();
 	printk("Hello 0x%lu-0x%lu", 52320390239, 42342);
 	//monitor_write("Your kernel run bro\n");
-	asm volatile ("int $0x3");
-	asm volatile ("int $0x4");
+	init_timer(50);
+	printk("timer init");
+	//asm volatile ("int $0x3");
+	//asm volatile ("int $0x4");
 }
 

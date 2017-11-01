@@ -1,4 +1,4 @@
-//#include "vga.h"	
+#include <AOS-unix/string.h>
 #include <AOS-unix/vga.h>	
 
 #define LINES				25
@@ -210,7 +210,23 @@ void monitor_write(char* str)
 /* происходит инициализация экрана */
 void monitor_init()
 {
+	monitor_clear();
 	cursor_line = 0;
 	cursor_col = 0;
 	vga_set_color_text_white();
+	monitor_write("VGA Text mode on\n");
+}
+
+void monitor_write_hex(int32_t value)
+{
+
+}
+
+void monitor_write_dec(int32_t value)
+{
+	char str[20] = { 0 };
+	itoa(value, str);
+
+	monitor_write(str);
+	monitor_write("\n");
 }

@@ -21,13 +21,12 @@ idt_ptr_t	idt_ptr;
 
 void gdt_idt_init()
 {
+	memset(&interrupt_handlers, 0, sizeof(isr_t)*256);
+
 	init_gdt();
 	init_idt();
 
-	memset(&interrupt_handlers, 0, sizeof(isr_t)*256);
-
-	printk("gdt_idt_init");
-	monitor_write("Your kernel run bro\n");
+	asm volatile("sti");
 }
 
 static void init_idt()
@@ -99,6 +98,8 @@ static void init_idt()
 	idt_set_gate(47, (uint32_t) irq15, 0x08, 0x8e);
 
 	idt_flush((uint32_t)&idt_ptr);
+
+	printk("IDT init\n");
 }
 
 static void idt_set_gate(uint8_t num, uint32_t base, uint16_t sel, uint8_t flags)
@@ -133,6 +134,8 @@ static void init_gdt()
 
 	/* загружаем таблицу gdt в регист GDTT */
 	gdt_flush((uint32_t)&gdt_ptr);
+
+	printk("GDT init\n");
 }
 
 static void gdt_set_gate(int32_t num, uint32_t base, uint32_t limit,

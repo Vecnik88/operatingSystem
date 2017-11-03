@@ -1,10 +1,8 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-#include <AOS-unix/printk.h>
-#include <AOS-unix/isr.h>
-#include <AOS-unix/port.h>
+#include <stdint.h>
 
-void init_timer(uint32_t frequency);
+void init_timer(unsigned int div);
 
 #endif	/* TIMER_H */

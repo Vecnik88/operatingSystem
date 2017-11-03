@@ -219,7 +219,7 @@ void monitor_init()
 
 void monitor_write_hex(int32_t value)
 {
-
+	/* TODO */
 }
 
 void monitor_write_dec(int32_t value)

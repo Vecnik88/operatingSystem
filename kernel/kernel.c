@@ -3,10 +3,12 @@
 #include <AOS-unix/printk.h>
 //#include <AOS-unix/vga_graph.h>
 #include <AOS-unix/timer.h>
+#include <AOS-unix/idt.h>
+#include <AOS-unix/isr.h>
 
 int start_kernel(uintptr_t mb_info_phys)
 { 
-	monitor_init();
+	//monitor_init();
 	/*const struct multiboot_info * const info = mb_info_phys;	
 	monitor_init();
 	monitor_clear();
@@ -21,13 +23,17 @@ int start_kernel(uintptr_t mb_info_phys)
 	//vbe_set(1200, 1200, 1200);
 	//vbe_set(200, 200, 200);
 	//printk("Hello 0x%lu-0x%lu", 52320390239, 42342);
-
-	init_timer(50);
+	isr_install();
+    /* Test the interrupts */
+    //__asm__ __volatile__("int $2");
+    //__asm__ __volatile__("int $3");
+	//init_timer(50);
 	//VGA_init();
 	//monitor_clear();
 	//printk("Hello 0x%lu-0x%lu", 52320390239, 42342);
 	//monitor_write("Your kernel run bro\n");
-//	init_timer(100);
+	init_timer(50);
+	asm volatile("sti");
 	//printk("timer init");
 	//asm volatile ("int $0x3");
 	//asm volatile ("int $0x13");

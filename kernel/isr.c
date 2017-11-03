@@ -1,4 +1,5 @@
 #include <AOS-unix/isr.h>
+<<<<<<< HEAD
 #include <AOS-unix/idt.h>
 #include <AOS-unix/printk.h>
 #include <AOS-unix/port.h>
@@ -141,4 +142,32 @@ void irq_handler(registers_t r) {
         isr_t handler = interrupt_handlers[r.int_no];
         handler(r);
     }
+=======
+
+isr_t interrupt_handlers[256];
+
+void isr_handler(registers_t regs)
+{
+	printk("received interrupt: %d\n", regs.int_no);
+}
+
+void irq_handler(registers_t regs)
+{
+	if (regs.int_no >= 40) {
+		out_byte(0xA0, 0x20);
+	}
+	printk("I run");
+
+	out_byte(0x20, 0x20);
+	if (interrupt_handlers[regs.int_no] != 0) {
+		isr_t handler = interrupt_handlers[regs.int_no];
+		handler(regs);
+	}
+}
+
+void register_interrupt_handler(uint8_t n, isr_t handler)
+{
+	interrupt_handlers[n] = handler;
+	printk("register_interrupt_handler run");
+>>>>>>> parent of dc68c92... gdt idt refresh
 }

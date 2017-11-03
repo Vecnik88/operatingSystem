@@ -1,4 +1,4 @@
-#include <AOS-unix/string.h>
+//#include "vga.h"	
 #include <AOS-unix/vga.h>	
 
 #define LINES				25
@@ -210,12 +210,11 @@ void monitor_write(char* str)
 /* происходит инициализация экрана */
 void monitor_init()
 {
-	monitor_clear();
 	cursor_line = 0;
 	cursor_col = 0;
 	vga_set_color_text_white();
-	monitor_write("VGA Text mode on\n");
 }
+<<<<<<< HEAD
 
 void monitor_write_hex(int32_t value)
 {
@@ -230,3 +229,5 @@ void monitor_write_dec(int32_t value)
 	monitor_write(str);
 	monitor_write("\n");
 }
+=======
+>>>>>>> parent of dc68c92... gdt idt refresh

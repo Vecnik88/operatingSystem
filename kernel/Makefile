@@ -5,9 +5,14 @@
 
 CC=gcc
 GDB=gdb
+<<<<<<< HEAD
 SOURCES = boot.o kernel.o port.o vga.o printk.o string.o \
 			gdt.o interrupt.o isr.o idt.o \
 			timer.o
+=======
+SOURCES = boot.o kernel.o port.o vga.o printk.o isr.o \
+			descriptor_tables.o gdt.o string.o interrupt.o timer.o
+>>>>>>> parent of dc68c92... gdt idt refresh
 
 CFLAGS=-g -ffreestanding -m32 -O0 -I$(INC) -I../
 LDLFLAGS=-Tlink.ld -melf_i386

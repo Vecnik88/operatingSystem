@@ -6,6 +6,7 @@
 #include <AOS-unix/timer.h>
 #include <AOS-unix/keyboard.h>
 #include <AOS-unix/cpuid.h>
+#include <AOS-unix/paging.h>
 #include <stdint.h>
 
 int start_kernel(uintptr_t mb_info_phys)
@@ -14,7 +15,9 @@ int start_kernel(uintptr_t mb_info_phys)
 	monitor_init();
 	monitor_clear();
 	gdt_idt_init();
-	init_keyboard();
+	//init_keyboard();
+	asm volatile("sti");
+	init_paging();
 	//printk("gdt_init\n");
 	//monitor_put_char('a');
 	//monitor_write("Your kernel run bro\n");
@@ -28,10 +31,10 @@ int start_kernel(uintptr_t mb_info_phys)
 	//VGA_init();
 	//monitor_clear();
 	printk("Hello 0x%lu-0x%lu", 52320390239, 42342);
-	monitor_write("Your kernel run bro");
+	//monitor_write("Your kernel run bro");
 	//init_timer(50);
-	asm volatile("sti");
-	print_info_cpu();
+	//asm volatile("sti");
+	//print_info_cpu();
 	//printk("timer init");
 	//asm volatile ("int $0x3");
 	//asm volatile ("int $0x13");

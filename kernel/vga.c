@@ -218,7 +218,36 @@ void monitor_init()
 
 void monitor_write_hex(int32_t value)
 {
-	/* TODO */
+	int32_t tmp;
+
+    monitor_write("0x");
+
+    char no_zero = 1;
+
+    int i;
+    for (i = 28; i > 0; i -= 4) {
+        tmp = (value >> i) & 0xF;
+
+        if (tmp == 0 && no_zero != 0) {
+            continue;
+        }
+    
+        if (tmp >= 0xA) {
+            no_zero = 0;
+            monitor_put_char(tmp - 0xA + 'a');
+        } else {
+            no_zero = 0;
+            monitor_put_char(tmp + '0');
+        }
+    }
+
+    tmp = value & 0xF;
+    
+    if (tmp >= 0xA) {
+        monitor_put_char(tmp - 0xA + 'a');
+    } else {
+        monitor_put_char(tmp + '0');
+    }
 }
 
 void monitor_write_dec(int32_t value)

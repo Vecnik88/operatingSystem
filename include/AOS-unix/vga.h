@@ -9,5 +9,7 @@
 void monitor_init();
 void monitor_write(char* str);
 void monitor_clear();
+void monitor_put_char(char symbol);
+void monitor_backspace();
 
 #endif	/* VGA_H */

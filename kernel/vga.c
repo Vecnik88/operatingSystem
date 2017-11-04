@@ -229,3 +229,16 @@ void monitor_write_dec(int32_t value)
 	monitor_write(str);
 	monitor_write("\n");
 }
+
+void monitor_backspace()
+{
+	if (cursor_line > 0) {
+		--cursor_col;
+		uint16_t *location =(uint16_t *)(video_memory + 80 * cursor_line + cursor_col);
+
+		uint16_t blank = get_blank_attr();
+		*location = blank;
+
+		set_position_cursor();
+	}
+}

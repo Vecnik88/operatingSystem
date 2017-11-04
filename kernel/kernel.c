@@ -26,9 +26,9 @@ int start_kernel(uintptr_t mb_info_phys)
 	//init_timer(50);
 	//VGA_init();
 	//monitor_clear();
-	//printk("Hello 0x%lu-0x%lu", 52320390239, 42342);
-	//monitor_write("Your kernel run bro\n");
-	init_timer(50);
+	printk("Hello 0x%lu-0x%lu", 52320390239, 42342);
+	monitor_write("Your kernel run bro");
+	//init_timer(50);
 	asm volatile("sti");
 	//printk("timer init");
 	//asm volatile ("int $0x3");

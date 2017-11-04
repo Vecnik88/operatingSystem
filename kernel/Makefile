@@ -8,8 +8,8 @@ GDB=gdb
 
 SOURCES = boot.o kernel.o port.o vga.o printk.o isr.o \
 			descriptor_tables.o gdt.o string.o interrupt.o timer.o \
-			keyboard.o
-			
+			keyboard.o kheap.o cpuid.o
+
 CFLAGS=-g -ffreestanding -m32 -O0 -I$(INC) -I../
 LDLFLAGS=-Tlink.ld -melf_i386
 ASFLAGS=-felf

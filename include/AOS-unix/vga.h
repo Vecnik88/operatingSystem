@@ -3,7 +3,6 @@
 
 #include <stdarg.h>
 #include <stdint.h>
-#include "port.h"
 #include <stdbool.h>
 #include <stdarg.h>
 

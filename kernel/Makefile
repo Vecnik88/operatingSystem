@@ -5,6 +5,7 @@
 
 CC=gcc
 GDB=gdb
+
 SOURCES = boot.o kernel.o port.o vga.o printk.o isr.o \
 			descriptor_tables.o gdt.o string.o interrupt.o timer.o \
 			keyboard.o

@@ -1,5 +1,6 @@
-//#include "vga.h"	
-#include <AOS-unix/vga.h>	
+#include <AOS-unix/vga.h>
+#include <AOS-unix/port.h>
+#include <AOS-unix/string.h>
 
 #define LINES				25
 #define LINES_SCREEN		24
@@ -213,4 +214,18 @@ void monitor_init()
 	cursor_line = 0;
 	cursor_col = 0;
 	vga_set_color_text_white();
+}
+
+void monitor_write_hex(int32_t value)
+{
+	/* TODO */
+}
+
+void monitor_write_dec(int32_t value)
+{
+	char str[20] = { 0 };
+	itoa(value, str);
+
+	monitor_write(str);
+	monitor_write("\n");
 }

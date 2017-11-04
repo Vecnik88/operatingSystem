@@ -1,7 +1,7 @@
 #ifndef PRINT_K_H
 #define PRINT_K_H
 
-#include "vga.h"
+#include <AOS-unix/vga.h>
 
 #define ZEROPAD	1
 #define SIGN	2

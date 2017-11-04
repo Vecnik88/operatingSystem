@@ -1,4 +1,5 @@
 #include <AOS-unix/keyboard.h>
+#include <AOS-unix/printk.h>
 
 static void keyboard_callback(registers_t regs)
 {

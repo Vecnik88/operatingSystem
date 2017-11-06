@@ -8,7 +8,8 @@ GDB=gdb
 
 SOURCES = 	boot.o kernel.o port.o vga.o printk.o isr.o \
 			descriptor_tables.o gdt.o string.o interrupt.o timer.o \
-			keyboard.o kheap.o cpuid.o paging.o panic.o
+			keyboard.o kheap.o cpuid.o paging.o page_dir.o
+
 
 CFLAGS=-g -ffreestanding -m32 -O0 -I$(INC) -I../
 LDLFLAGS=-Tlink.ld -melf_i386
@@ -21,6 +22,9 @@ all: $(SOURCES) link
 run:
 	qemu-system-x86_64 -kernel kernel -m 512M
 
+debug: kernel
+	qemu-system-x86_64 -s -kernel kernel &
+	${GDB} -ex "target remote localhost:1234" -ex "symbol-file kernel"
 clean:
 	-rm -rf *.o kernel
 

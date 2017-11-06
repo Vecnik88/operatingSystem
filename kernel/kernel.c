@@ -11,34 +11,12 @@
 
 int start_kernel(uintptr_t mb_info_phys)
 { 	
-	//const struct multiboot_info * const info = va(mb_info_phys);
-	monitor_init();
-	monitor_clear();
 	gdt_idt_init();
-	//init_keyboard();
-	asm volatile("sti");
+	monitor_clear();
+	monitor_write("Hello, paging world!\n");
+
 	init_paging();
-	//printk("gdt_init\n");
-	//monitor_put_char('a');
-	//monitor_write("Your kernel run bro\n");
-	//monitor_write("Your kernel run bro\n");
-	//vbe_set(1200, 1200, 1200);
-	//vbe_set(200, 200, 200);
-    /* Test the interrupts */
-    //__asm__ __volatile__("int $2");
-    //__asm__ __volatile__("int $3");
-	//init_timer(50);
-	//VGA_init();
-	//monitor_clear();
-	printk("Hello 0x%lu-0x%lu", 52320390239, 42342);
-	//monitor_write("Your kernel run bro");
-	//init_timer(50);
-	//asm volatile("sti");
-	//print_info_cpu();
-	//printk("timer init");
-	//asm volatile ("int $0x3");
-	//asm volatile ("int $0x13");
-//	asm volatile ("int $0x12");
-//	asm volatile ("int $0x13");
+	uint32_t *ptr = (uint32_t*)0xA0000000;
+	uint32_t do_page_fault = *ptr;
 }
 

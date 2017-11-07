@@ -8,7 +8,7 @@ GDB=gdb
 
 SOURCES = 	boot.o kernel.o port.o vga.o printk.o isr.o \
 			descriptor_tables.o gdt.o string.o interrupt.o timer.o \
-			keyboard.o kheap.o cpuid.o paging.o page_dir.o
+			keyboard.o cpuid.o paging.o
 
 
 CFLAGS=-g -ffreestanding -m32 -O0 -I$(INC) -I../

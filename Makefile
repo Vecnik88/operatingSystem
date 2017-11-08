@@ -3,21 +3,36 @@
 # $< Имя первой зависимости обрабатываемого правила
 # $^ Список всех зависимостей обрабатываемого правила
 
-CC=gcc
-GDB=gdb
+CC?=gcc
+GDB?=gdb
+LD?=ld
 
-SOURCES = 	boot.o kernel.o port.o vga.o printk.o isr.o \
-			descriptor_tables.o gdt.o string.o interrupt.o timer.o \
-			keyboard.o cpuid.o paging.o
+CFLAGS:=-g -ffreestanding -m32 -O0 -I$(INC)
+LDLFLAGS:=-Tlink.ld -melf_i386
+ASFLAGS:=-felf
 
+INC:=../include
+SRC:=./boot ./kernel ./memory ./cpu ./drivers ./libc
 
-CFLAGS=-g -ffreestanding -m32 -O0 -I$(INC) -I../
-LDLFLAGS=-Tlink.ld -melf_i386
-ASFLAGS=-felf
+C_SOURCES:=$(shell find $(SRC)/*.c)
+C_OBJECTS:=$(C_SOURCES:.c=.o)
+S_SOURCES:=$(shell find $(SRC)/*.s)
+S_OBJECTS:=$(S_SOURCES:.s=.o)
+OBJ:=$(C_OBJECTS) $(S_OBJECTS)
 
-INC=../include
+all: kernel
 
-all: $(SOURCES) link
+# собираем наше ядро(без загрузчика)
+kernel: $(OBJ)
+	$(LD) $(LDLFLAGS) -o $@ $(OBJ)
+
+# делаем объектные файлы из файлов на ассемблере
+$(S_OBJECTS): %.o: %.s
+	nasm $< -f elf -o $@
+
+# делаем объектные файлы из файлов на С
+$(C_OBJECTS): %.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 run:
 	qemu-system-x86_64 -kernel kernel -m 512M
@@ -25,8 +40,10 @@ run:
 debug: kernel
 	qemu-system-x86_64 -s -kernel kernel &
 	${GDB} -ex "target remote localhost:1234" -ex "symbol-file kernel"
+
+.PHONY: clean
 clean:
-	-rm -rf *.o kernel
+	-rm *.o kernel
 
 link:
 	ld $(LDLFLAGS) -o kernel $(SOURCES)

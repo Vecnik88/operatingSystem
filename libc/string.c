@@ -1,63 +1,60 @@
-#include "string.h"
+#include <AOS-unix/string.h>
 
-void i_t_o_a(s32_int n, s8_int* str)
+size_t strlen(const char *str)
 {
-	s32_int i = 0, sign = n;
+	const char *begin = str;
 
-	if (sign < 0)
-		n = -n;
-
-	do {
-		str[i++] = n % 10 + '0';
-	} while ((n/=10) > 0);
-
-	if (sign < 0)
-		str[i++] = '-';
-
-	str[i] = '\0';
-
-	reverse(str);
+	while (*str++);
+	return str - begin - 1;
 }
 
-void reverse(u8_int* str)
+void *memcpy(void *dst, const void *src, size_t size)
 {
-	s32_int c, i, j;
-	for (i = 0, j = strlen(str)-1; i < j; ++i, --j) {
-		c = str[i];
-		str[i] = str[j];
-		str[j] = c;
-	}
+	char *to = dst;
+	const char *from = src;
+
+	while (size--)
+		*to++ = *from++;
+	return dst;
 }
 
-s32_int strlen(u8_int* str)
+void *memset(void *dst, int fill, size_t size)
 {
-	s32_int count = 0;
-	while (str[count])
-		++count;
+	char *to = dst;
 
-	return count;
+	while (size--)
+		*to++ = fill;
+	return dst;
 }
 
-void append(s8_int* str, s8_int n)
+void reverse(char s[])
 {
-	s32_int len = strlen(str);
-	str[len] = n;
-	str[len+1] = '\0';
+    int i, j;
+    char c;
+ 
+    for (i = 0, j = strlen(s)-1; i<j; i++, j--) {
+        c = s[i];
+        s[i] = s[j];
+        s[j] = c;
+    }
 }
 
-void backspace(s8_int* str)
+void itoa(int n, char s[])
 {
-	s32_int len = strlen(str);
-	str[len-1] = '\0';
-}
+    int i, sign;
+ 
+    if ((sign = n) < 0)				/* записываем знак */
+        n = -n;						/* делаем n положительным числом */
+    
+    i = 0;
+    do {							/* генерируем цифры в обратном порядке */
+        s[i++] = n % 10 + '0';		/* берем следующую цифру */
+    } while ((n /= 10) > 0);		/* удаляем */
+    
+    if (sign < 0)
+        s[i++] = '-';
+    
+    s[i] = '\0';
 
-s32_int strcmp(s8_int* str1, s8_int* str2)
-{
-	u32_int i;
-	for (i = 0; str1[i] == str2[i]; ++i) {
-		if (str1[i] == '\0')
-			return 0;
-	}
-
-	return str1[i] - str2[i];
-}
+    reverse(s);
+ }

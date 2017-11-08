@@ -1,0 +1,1 @@
+boot/boot.o boot/boot.o kernel/kernel.o memory/paging.o cpu/cpuid.o cpu/gdt.o cpu/interrupt.o 		 cpu/panic.o cpu/descriptor_tables.o cpu/idt.o 		 cpu/isr.o cpu/timer.ocpu/cpuid.o cpu/gdt.o cpu/interrupt.o cpu/panic.o 		 cpu/descriptor_tables.o cpu/idt.o cpu/isr.ocpu/cpuid.o cpu/gdt.o cpu/interrupt.o cpu/panic.o 		 cpu/descriptor_tables.o cpu/idt.o cpu/isr.o

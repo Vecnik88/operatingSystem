@@ -15,8 +15,8 @@ ASFLAGS=-felf
 INC:=../include
 
 all:
-	echo -n "cpu/cpuid.o cpu/gdt.o cpu/interrupt.o cpu/panic.o \
-			 cpu/descriptor_tables.o cpu/idt.o cpu/isr.o" >> ../objs.txt
+	@echo -n "cpu/cpuid.o cpu/gdt.o cpu/interrupt.o cpu/panic.o \
+			 cpu/descriptor_tables.o cpu/idt.o cpu/isr.o " >> ../objs.txt
 
 	$(CC) $(CFLAGS) -c cpuid.c -o cpuid.o
 	$(CC) $(CFLAGS) -c descriptor_tables.c -o descriptor_tables.o
@@ -27,4 +27,4 @@ all:
 	$(AS) interrupt.s -f elf -o interrupt.o
 
 clean:
-	-rm *.o
+	-@rm *.o

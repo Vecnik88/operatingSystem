@@ -2,102 +2,54 @@
 # $@ Имя цели обрабатываемого правила
 # $< Имя первой зависимости обрабатываемого правила
 # $^ Список всех зависимостей обрабатываемого правила
+.PHONY: clean bkernel
+
+all: bkernel link run
 
 CC?=gcc
 GDB?=gdb
 LD?=ld
 
-CFLAGS:=-g -ffreestanding -m32 -O0 -I$(INC)
+CFLAGS:=-g -ffreestanding -m32 -O0
 LDLFLAGS:=-Tlink.ld -melf_i386
 ASFLAGS:=-felf
 
-INC:=../include
-SRC:=./boot ./kernel ./memory ./cpu ./drivers ./libc
+# сборка объектных файлов из исходников
+bkernel:
+	@$(MAKE) clean
+	@echo "Start build kernel"
+	if [[ -e "objs.txt" ]]; then -rm objs.txt; fi;
+	@cd boot && $(MAKE) $(MFLAGS)
+	@cd kernel && $(MAKE) $(MFLAGS)
+	@cd memory && $(MAKE) $(MFLAGS)
+	@cd cpu && $(MAKE) $(MFLAGS)
+	@cd drivers && $(MAKE) $(MFLAGS)
+	@cd libc && $(MAKE) $(MFLAGS)
 
-C_SOURCES:=$(shell find $(SRC)/*.c)
-C_OBJECTS:=$(C_SOURCES:.c=.o)
-S_SOURCES:=$(shell find $(SRC)/*.s)
-S_OBJECTS:=$(S_SOURCES:.s=.o)
-OBJ:=$(C_OBJECTS) $(S_OBJECTS)
+OBJ=`cat objs.txt`
 
-all: kernel
-
-# собираем наше ядро(без загрузчика)
-kernel: $(OBJ)
-	$(LD) $(LDLFLAGS) -o $@ $(OBJ)
-
-# делаем объектные файлы из файлов на ассемблере
-$(S_OBJECTS): %.o: %.s
-	nasm $< -f elf -o $@
-
-# делаем объектные файлы из файлов на С
-$(C_OBJECTS): %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-run:
-	qemu-system-x86_64 -kernel kernel -m 512M
-
-debug: kernel
-	qemu-system-x86_64 -s -kernel kernel &
-	${GDB} -ex "target remote localhost:1234" -ex "symbol-file kernel"
-
-.PHONY: clean
-clean:
-	-rm *.o kernel
-
+# линковка объектных файлов
 link:
-	ld $(LDLFLAGS) -o kernel $(SOURCES)
+	$(LD) $(LDLFLAGS) -o bkernel $(OBJ)
+	@echo "Kernel done."
 
-.s.o:
-	nasm $< -f elf -o $@
+# запускаем qemu
+run:
+	qemu-system-x86_64 -kernel bkernel -m 1024M
 
-#nasm $(ASFLAGS) $<
+# подключаем отладчик
+debug: bkernel
+	qemu-system-x86_64 -s -kernel bkernel &
+	${GDB} -ex "target remote localhost:1234" -ex "symbol-file bkernel"
 
-#C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c libc/*.c memory/*.c)
-#HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h libc/*.h memory/*.h)
-# Nice syntax for file extension replacement
-#OBJ = ${C_SOURCES:.c=.o cpu/interrupt.o}
-
-# Change this if your cross-compiler is somewhere else
-#CC = gcc
-#GDB = gdb
-# -g: Use debugging symbols in gcc
-#CFLAGS = -g
-# CFLAGS=-nostdlib -nostdinc -fno-builtin -fno-stack-protector -g
-
-# First rule is run by default
-#os-image.bin: boot/bootsect.bin kernel.bin
-#	cat $^ > os-image.bin
-
-# '--oformat binary' deletes all symbols as a collateral, so we don't need
-# to 'strip' them manually on this case
-#kernel.bin: boot/kernel_entry.o ${OBJ}
-#	ld -melf_i386 -o $@ -Ttext 0x1000 $^ --oformat binary
-
-# Used for debugging purposes
-#kernel.elf: boot/kernel_entry.o ${OBJ}
-#	ld -melf_i386 -o $@ -Ttext 0x1000 $^ 
-
-#run: os-image.bin
-#	qemu-system-x86_64 -kernel os-image.bin -m 512M
-# qemu-system-x86_64 -fda os-image.bin -m 512M
-
-# Open the connection to qemu and load our kernel-object file with symbols
-#debug: os-image.bin kernel.elf
-#	qemu-system-x86_64 -s -fda os-image.bin &
-#	${GDB} -ex "target remote localhost:1234" -ex "symbol-file kernel.elf"
-
-# Generic rules for wildcards
-# To make an object, always compile from its .c
-#%.o: %.c ${HEADERS}
-#	${CC} -m32 ${CFLAGS} -ffreestanding -c $< -o $@
-
-#%.o: %.asm
-#	nasm $< -f elf -o $@
-
-#%.bin: %.asm
-#	nasm $< -f bin -o $@
-
-#clean:
-#	rm -rf *.bin *.dis *.o os-image.bin *.elf
-#	rm -rf kernel/*.o boot/*.bin drivers/*.o boot/*.o cpu/*.o libc/*.o memory/*.o
+# очищаем проект
+clean:
+	@cd boot && $(MAKE) clean
+	@cd kernel && $(MAKE) clean
+	@cd memory && $(MAKE) clean
+	@cd cpu && $(MAKE) clean
+	@cd drivers && $(MAKE) clean
+	@cd libc && $(MAKE) clean
+	-@rm objs.txt
+	-@rm bkernel
+	@echo "Clear project with object file"

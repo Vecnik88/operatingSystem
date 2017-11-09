@@ -12,10 +12,8 @@ ASFLAGS=-felf
 
 INC=../include
 
-
 all:
-	@echo -n "libc/string.o " >> ../objs.txt
-	$(CC) $(CFLAGS) -c string.c -o string.o
+	@cd text_mode && $(MAKE) $(MFLAGS)
 
 clean:
 	-@rm *.o

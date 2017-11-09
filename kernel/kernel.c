@@ -16,7 +16,10 @@ int start_kernel(uintptr_t mb_info_phys)
 	monitor_write("Hello, paging world!\n");
 
 	paging_init();
-	uint32_t *ptr = (uint32_t*)0xA0000000;
+	uint32_t *ptr = (uint32_t*)0xb0000000;
 	uint32_t do_page_fault = *ptr;
+
+	uint32_t *ptr1 = (uint32_t*)0xb0000000;
+	uint32_t do_page_fault1 = *ptr1;
 }
 

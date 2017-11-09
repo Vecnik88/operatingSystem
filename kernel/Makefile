@@ -14,5 +14,8 @@ ASFLAGS=-felf
 INC:=../include
 
 all:
-	echo -n "kernel/kernel.o " >> ../objs.txt
+	@echo -n "kernel/kernel.o " >> ../objs.txt
 	$(CC) $(CFLAGS) -c kernel.c -o kernel.o
+
+clean:
+	-@rm *.o

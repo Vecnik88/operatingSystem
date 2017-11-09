@@ -14,5 +14,8 @@ ASFLAGS=-felf
 INC:=../include
 
 all:
-	echo -n "memory/paging.o " >> ../objs.txt
+	@echo -n "memory/paging.o " >> ../objs.txt
 	$(CC) $(CFLAGS) -c paging.c -o paging.o
+
+clean:
+	-@rm paging.o

@@ -10,12 +10,11 @@ CFLAGS=-g -ffreestanding -m32 -O0 -I$(INC)
 LDLFLAGS=-Tlink.ld -melf_i386
 ASFLAGS=-felf
 
-INC=../include
-
+INC=../../../include
 
 all:
-	@echo -n "libc/string.o " >> ../objs.txt
-	$(CC) $(CFLAGS) -c string.c -o string.o
+	@echo -n "drivers/display/text_mode/vga.o " >> ../../../objs.txt
+	$(CC) $(CFLAGS) -c vga.c -o vga.o
 
 clean:
 	-@rm *.o

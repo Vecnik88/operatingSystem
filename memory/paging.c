@@ -1,10 +1,8 @@
-#include <AOS-unix/paging.h>
 #include <AOS-unix/isr.h>
 #include <AOS-unix/vga.h>
-#include <stdint.h>
+#include <AOS-unix/paging.h>
 
-extern void loadPageDirectory(unsigned int*);
-extern void enablePaging();
+#include <stdint.h>
 
 uint32_t page_directory[1024]__attribute__((aligned(4096)));
 uint32_t first_page_table[1024]__attribute__((aligned(4096)));

@@ -4,7 +4,7 @@
 # $^ Список всех зависимостей обрабатываемого правила
 
 all:
-	@echo -n "boot/boot.o " >> ../objs.txt
+	@echo -n "arch/x86/boot.o " >> ../../objs.txt
 	nasm boot.s -f elf -o boot.o
 
 clean:

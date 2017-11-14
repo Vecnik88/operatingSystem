@@ -19,7 +19,7 @@ bkernel:
 	@$(MAKE) clean
 	@echo "Start build kernel"
 	if [[ -e "objs.txt" ]]; then -rm objs.txt; fi;
-	@cd boot && $(MAKE) $(MFLAGS)
+	@cd arch/x86/ && $(MAKE) $(MFLAGS)
 	@cd kernel && $(MAKE) $(MFLAGS)
 	@cd memory && $(MAKE) $(MFLAGS)
 	@cd cpu && $(MAKE) $(MFLAGS)
@@ -35,7 +35,7 @@ link:
 
 # запускаем qemu
 run:
-	qemu-system-x86_64 -kernel bkernel -m 1024M
+	qemu-system-x86_64 -kernel bkernel -m 256M
 
 # подключаем отладчик
 debug: bkernel
@@ -44,7 +44,7 @@ debug: bkernel
 
 # очищаем проект
 clean:
-	@cd boot && $(MAKE) clean
+	@cd arch/x86/ && $(MAKE) clean
 	@cd kernel && $(MAKE) clean
 	@cd memory && $(MAKE) clean
 	@cd cpu && $(MAKE) clean

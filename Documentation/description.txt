@@ -7,7 +7,7 @@
 
 qemu:
 =====
-    qemu-system-x86_64 -fda os-image.bin
+    qemu-system-x86_64 -kernel bkernel -m 256M
 
 Netwide Assembler: http://nasm.sourceforge.net
 GRUB: http://www.gnu.org/software/grub

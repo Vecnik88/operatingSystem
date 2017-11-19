@@ -12,10 +12,11 @@
 int start_kernel(uintptr_t mb_info_phys)
 { 	
 	gdt_idt_init();
-	monitor_clear();
-	monitor_write("Hello, paging world!\n");
-
 	paging_init();
+	monitor_init();
+	monitor_clear();
+	printk("Hello, paging world!\n");
+
 	uint32_t *ptr = (uint32_t*)0xb0000000;
 	uint32_t do_page_fault = *ptr;
 

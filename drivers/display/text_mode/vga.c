@@ -33,7 +33,7 @@ typedef uint32_t size_t;
 
 static uint32_t cursor_col = 0;
 static uint32_t cursor_line = 0;
-static uint8_t text_color = VGA_COLOR_WHITE | (VGA_COLOR_BLACK << 4);
+static uint8_t text_color = VGA_COLOR_BLUE | (VGA_COLOR_BLACK << 4);
 static short *video_memory = (short *)VGA_BUFFER_START;
 
 /* API для удобства работы с цветом текста */
@@ -41,6 +41,12 @@ static inline uint8_t vga_entry_color(enum vga_color fore_color,
 									  enum vga_color background_color)
 {
 	return fore_color | background_color << 4;
+}
+
+static inline void vga_set_color(enum vga_color color_text, 
+								 enum vga_color color_background)
+{
+	text_color = color_text | (color_background << 4);
 }
 
 static inline void vga_set_color_text(enum vga_color color_text)
@@ -213,7 +219,7 @@ void monitor_init()
 {
 	cursor_line = 0;
 	cursor_col = 0;
-	vga_set_color_text_white();
+	vga_set_color(VGA_COLOR_WHITE, VGA_COLOR_BLUE);
 }
 
 void monitor_write_hex(int32_t value)

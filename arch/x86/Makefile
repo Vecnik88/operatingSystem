@@ -8,4 +8,4 @@ all:
 	nasm boot.s -f elf -o boot.o
 
 clean:
-	-@rm *.o
+	-@rm -rf *.o

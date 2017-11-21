@@ -27,4 +27,4 @@ all:
 	$(AS) interrupt.s -f elf -o interrupt.o
 
 clean:
-	-@rm *.o
+	-@rm -rf *.o

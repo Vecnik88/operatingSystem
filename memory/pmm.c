@@ -189,11 +189,11 @@ uint32_t pmm_get_block_size()
 	return PMMNGR_BLOCK_SIZE;
 }
 
-void pmm_paging_enable()
+void pmm_paging_enable(phys_addr addr)
 {
-	//asm volatile("mov %0, %%cr3":: "r"(page_directory));
-	uint32_t cr0;
-	asm volatile("mov %%cr0, %0": "=r"(cr0));
-	cr0 |= 0x80000000; // Enable paging!
-	asm volatile("mov %0, %%cr0":: "r"(cr0));
+   asm volatile("mov %%0, %%cr3":: "r"(addr));
+   uint32_t cr0;
+   asm volatile("mov %%cr0, %0": "=r"(cr0));
+   cr0 |= 0x80000000; // Enable paging!
+   asm volatile("mov %0, %%cr0":: "r"(cr0));
 }

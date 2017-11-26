@@ -22,7 +22,6 @@ bkernel:
 	@cd arch/x86/ && $(MAKE) $(MFLAGS)
 	@cd kernel && $(MAKE) $(MFLAGS)
 	@cd memory && $(MAKE) $(MFLAGS)
-	@cd cpu && $(MAKE) $(MFLAGS)
 	@cd drivers && $(MAKE) $(MFLAGS)
 	@cd libc && $(MAKE) $(MFLAGS)
 
@@ -47,7 +46,6 @@ clean:
 	@cd arch/x86/ && $(MAKE) clean
 	@cd kernel && $(MAKE) clean
 	@cd memory && $(MAKE) clean
-	@cd cpu && $(MAKE) clean
 	@cd drivers && $(MAKE) clean
 	@cd libc && $(MAKE) clean
 	-@rm objs.txt

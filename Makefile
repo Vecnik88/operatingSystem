@@ -34,7 +34,7 @@ link:
 
 # запускаем qemu
 run:
-	qemu-system-x86_64 -kernel bkernel -m 256M
+	qemu-system-x86_64 -kernel bkernel -m 1024M
 
 # подключаем отладчик
 debug: bkernel

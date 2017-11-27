@@ -7,14 +7,15 @@
 #include <AOS-unix/keyboard.h>
 #include <AOS-unix/cpuid.h>
 #include <AOS-unix/paging.h>
+#include <AOS-unix/hal.h>
 #include <stdint.h>
 
 int start_kernel(uintptr_t mb_info_phys)
 { 	
-	gdt_idt_init();
+	hal_init();
+	init_timer(50);
 	paging_init();
-	monitor_init();
-	monitor_clear();
+
 	printk("Hello, paging world!\n");
 
 	uint32_t *ptr = (uint32_t*)0xb0000000;

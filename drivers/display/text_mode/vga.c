@@ -220,6 +220,7 @@ void monitor_init()
 	cursor_line = 0;
 	cursor_col = 0;
 	vga_set_color(VGA_COLOR_WHITE, VGA_COLOR_BLUE);
+	monitor_clear();
 }
 
 void monitor_write_hex(int32_t value)

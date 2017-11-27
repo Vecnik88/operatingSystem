@@ -47,6 +47,8 @@ static void init_idt()
 	out_byte(0x21, 0x0);
 	out_byte(0xA1, 0x0);
 
+	default_interrupt_handler();
+
 	idt_set_gate(0, (uint32_t) isr0, 0x08, 0x8e);
 	idt_set_gate(1, (uint32_t) isr1, 0x08, 0x8e);
 	idt_set_gate(2, (uint32_t) isr2, 0x08, 0x8e);

@@ -115,6 +115,7 @@ typedef struct {
 
 void isr_install();
 void isr_handler(registers_t r);
+void default_interrupt_handler();
 
 typedef void (*isr_t)(registers_t);
 void register_interrupt_handler(uint8_t n, isr_t handler);

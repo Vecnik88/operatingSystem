@@ -17,9 +17,10 @@ INC:=../../../include
 all:
 	@echo -n "arch/x86/hal/gdt.o arch/x86/hal/interrupt.o \
 			  arch/x86/hal/descriptor_tables.o arch/x86/hal/idt.o \
-			  arch/x86/hal/isr.o " >> ../../../objs.txt
+			  arch/x86/hal/isr.o arch/x86/hal/hal.o " >> ../../../objs.txt
 
 	$(CC) $(CFLAGS) -c descriptor_tables.c -o descriptor_tables.o
+	$(CC) $(CFLAGS) -c hal.c -o hal.o
 	$(CC) $(CFLAGS) -c idt.c -o idt.o
 	$(CC) $(CFLAGS) -c isr.c -o isr.o
 	$(AS) $(ASFLAGS) gdt.s -o gdt.o

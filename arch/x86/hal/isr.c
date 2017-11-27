@@ -2,7 +2,9 @@
 #include <AOS-unix/port.h>
 #include <AOS-unix/printk.h>
 
-isr_t interrupt_handlers[256];
+#define I86_MAX_INTERRUPTS 256
+
+isr_t interrupt_handlers[I86_MAX_INTERRUPTS];
 
 void isr_handler(registers_t regs)
 {
@@ -34,3 +36,18 @@ void register_interrupt_handler(uint8_t n, isr_t handler)
 
 	printk("register_interrupt_handler run");
 }
+
+void default_handler(registers_t regs)
+{
+	printk("This is default handler, interrupt number %d\n", regs.int_no);
+}
+
+void default_interrupt_handler()
+{
+	int i;
+	for (i = 0; i < I86_MAX_INTERRUPTS; ++i)
+		interrupt_handlers[i] = default_handler;
+
+	printk("Default handler init\n");
+}
+

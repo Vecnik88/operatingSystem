@@ -39,7 +39,7 @@ void register_interrupt_handler(uint8_t n, isr_t handler)
 
 void default_handler(registers_t regs)
 {
-	printk("This is default handler, interrupt number %d\n", regs.int_no);
+	
 }
 
 void default_interrupt_handler()

@@ -8,9 +8,6 @@
 #define ENTER 0x1C
 #define BACKSPACE 0x0E
 
-/* для буфера, когда будет реализован планировщик */
-static char key_buffer[256];
-
 void init_keyboard();
 
 #endif	/* KEYBOARD_H */

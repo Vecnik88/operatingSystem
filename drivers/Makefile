@@ -17,7 +17,8 @@ all:
 	$(CC) $(CFLAGS) -c port.c -o port.o
 	$(CC) $(CFLAGS) -c timer.c -o timer.o
 	$(CC) $(CFLAGS) -c printk.c -o printk.o
-	@cd display && $(MAKE) $(MFLAGS) 
+	@cd display && $(MAKE) $(MFLAGS)
+	@cd keyboard && $(MAKE) $(MFLAGS) 
 
 clean:
 	-@rm *.o

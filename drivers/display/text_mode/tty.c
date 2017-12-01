@@ -3,32 +3,26 @@
 #include <AOS-unix/keyboard.h>
 
 char tty_buffer[1024];
-int new_str = 1;
 
 static void run_command(char *str)
 {
-	printk("Your message: %s\n", str);
+	printk("\nYour message: %s\n", str);
 }
 
-void shell(char symbol)
+void shell(char symbol, uint8_t scancode)
 {
-	if (new_str) {
-		printk("AOS-unix-root > ");
-		new_str = 0;
-	}
-	
 	static uint32_t count = 0;
 
-	if (symbol == ENTER) {
+	if (scancode == ENTER) {
 		tty_buffer[count] = '\0';
-		memset(tty_buffer, '\0', sizeof(tty_buffer));
-		new_str = 1;
-		count = 0;
 		run_command(tty_buffer);
-	} else if (symbol == BACKSPACE) {
-		monitor_backspace();
-		--count;
-	} else {
+		memset(tty_buffer, '\0', sizeof(tty_buffer));
+		count = 0;
+		printk("AOS-unix_root> ");
+	} else if (scancode == BACKSPACE && count) {
+			monitor_backspace();
+			--count;
+	} else if (scancode != BACKSPACE) {
 		monitor_put_char(symbol);
 		tty_buffer[count++] = symbol;
 	}

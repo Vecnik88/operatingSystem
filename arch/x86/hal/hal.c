@@ -5,7 +5,6 @@
 
 void hal_init()
 {
-	monitor_init();
 	gdt_idt_init();
 	printk("Hal initialize\n");
 }

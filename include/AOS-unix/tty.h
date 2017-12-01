@@ -1,6 +1,8 @@
 #ifndef TTY_H
 #define TTY_H
 
-void shell(char);
+#include <stdint.h>
+
+void shell(char, uint8_t);
 
 #endif	/* TTY_H */

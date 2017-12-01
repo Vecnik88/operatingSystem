@@ -19,6 +19,8 @@ int start_kernel(uintptr_t mb_info_phys)
 	hal_init();
 	//init_timer(50);
 	init_keyboard();
+	monitor_init();
+	printk("AOS-unix_root> ");
 	//paging_init();
 }
 

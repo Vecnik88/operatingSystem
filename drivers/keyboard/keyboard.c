@@ -94,14 +94,7 @@ static void keyboard_callback(registers_t regs)
     if (scancode > SC_MAX)
     	return;
     
-    shell(get_char());
-    /*if (scancode == BACKSPACE) {
-        monitor_backspace();
-    } else if (scancode == ENTER) {
-        monitor_put_char('\n');
-    } else {
-        shell(get_char());
-    }*/
+    shell(get_char(), scancode);
 }
 
 uint8_t get_scan_code()
@@ -190,18 +183,6 @@ static void kkybrd_enable()
 void init_keyboard()
 {
 	register_interrupt_handler(IRQ1, keyboard_callback);
-
-	if (kkybrd_self_test) {
-		kkybrd_enable();
-	}
-	else {
-		kkybrd_disable();
-		printk("keyboard is not run\n");
-		return;
-	}
-
-	_numlock = _scrolllock = _capslock = 0;
-	kkybrd_set_leds(_numlock, _scrolllock, _capslock);
 
 	printk("keyboard init\n");
 }

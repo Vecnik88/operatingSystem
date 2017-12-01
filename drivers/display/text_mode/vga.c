@@ -268,7 +268,7 @@ void monitor_write_dec(int32_t value)
 
 void monitor_backspace()
 {
-	if (cursor_line > 0) {
+	if (cursor_col > 0) {
 		--cursor_col;
 		uint16_t *location =(uint16_t *)(video_memory + 80 * cursor_line + cursor_col);
 

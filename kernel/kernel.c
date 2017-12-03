@@ -21,6 +21,6 @@ int start_kernel(uintptr_t mb_info_phys)
 	init_keyboard();
 	monitor_init();
 	printk("AOS-unix_root> ");
-	//paging_init();
+	paging_init();
 }
 

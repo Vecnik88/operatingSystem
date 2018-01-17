@@ -3,6 +3,6 @@ Is fun.
 
 For assembly and startup:
 
-	git clone https://github.com/Vecnik88/Operations-System
-	cd Operations-System
+	git clone https://github.com/Vecnik88/operatingSystem operatingSystemIsFun
+	cd operatingSystemIsFun
 	make
